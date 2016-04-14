@@ -68,7 +68,9 @@ class HomePageAction
             $form->setData($request->getParsedBody());
 
             if ($form->isValid()) {
-                $this->objectManager->persist($form->getData());
+                $attendee = $form->getData();
+                $attendee->updateLastUpdateDateTime();
+                $this->objectManager->persist($attendee);
                 $this->objectManager->flush();
                 return new RedirectResponse($request->getUri());
             }
