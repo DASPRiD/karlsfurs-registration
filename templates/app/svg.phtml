@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?php ob_start(); ?>
+<?php $y = 20; ?>
+
+<?php foreach ($this->groups as $group): ?>
+    <?php
+    $groupAttendees = $group->getAttendees()->filter(function (App\Entity\Attendee $attendee) {
+        return $attendee->getWalkStatus() !== App\Entity\Attendee::STATUS_NO;
+    });
+    ?>
+    <text x="10" y="<?php echo $y; ?>" font-size="14" font-weight="bold" font-family="sans-serif"><?php echo $this->escapeHtml($group->getName()); ?></text>
+
+    <?php foreach ($groupAttendees as $attendee): ?>
+        <?php $y += 20; ?>
+        <text x="10" y="<?php echo $y; ?>" font-size="14"  font-family="sans-serif">
+            <?php echo $this->escapeHtml($attendee->getName()); ?>
+            <?php if ($attendee->getWalkStatus() === App\Entity\Attendee::STATUS_MAYBE): ?>
+                (?)
+            <?php endif; ?>
+        </text>
+    <?php endforeach; ?>
+
+    <?php $y += 40; ?>
+<?php endforeach; ?>
+
+<?php $contents = ob_get_clean(); ?>
+
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="600" height="<?php echo $y; ?>">
+    <?php echo $contents; ?>
+</svg>

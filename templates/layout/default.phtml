@@ -1,0 +1,70 @@
+<?php
+$this->headLink()
+    ->prependStylesheet('/css/screen.css')
+    ->prependStylesheet('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css')
+    ->prependStylesheet('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css');
+
+$this->inlineScript()
+    ->prependFile('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js')
+    ->prependFile('https://code.jquery.com/jquery-2.2.3.min.js');
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <?php echo $this->headTitle('Karlsfurs Suitwalk')->setSeparator(' - ')->setAutoEscape(false) ?>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <?php echo $this->headMeta(); ?>
+    <?php echo $this->headLink(); ?>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-inverse">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="http://forum.furbase.de/index.php?thread/67830">Furbase Thread</a></li>
+                    <li><a href="http://telegram.me/karlsfurs_suitwalk">Telegram Gruppe</a></li>
+                </ul>
+
+                <?php $emailAddress = $this->login(); ?>
+                <?php if (null === $emailAddress): ?>
+                    <form class="navbar-form navbar-right" method="POST" action="<?php echo $this->url('login'); ?>">
+                        <div class="form-group">
+                            <input type="email" name="emailAddress" placeholder="E-Mail Adresse" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-success">Anmelden</button>
+                    </form>
+                <?php else: ?>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <p class="navbar-text">
+                                Angemeldet als <?php echo $this->escapeHtml($emailAddress); ?>
+                            </p>
+                        </li>
+                        <li>
+                            <a href="<?php echo $this->url('logout'); ?>">Abmelden</a>
+                        </li>
+                    </ul>
+                <?php endif; ?>
+            </div>
+        </nav>
+
+        <header id="header"></header>
+
+        <div id="content">
+            <?php echo $this->content ?>
+        </div>
+    </div>
+
+    <?php echo $this->inlineScript(); ?>
+</body>
+</html>

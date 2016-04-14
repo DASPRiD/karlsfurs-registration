@@ -1,0 +1,12 @@
+<?php $this->headTitle('Anmelden'); ?>
+
+<?php if ($this->error): ?>
+    <?php echo [
+        'invalid-email-address' => 'Du hast eine ungültige E-Mail Adresse angegeben.',
+        'invalid-token' => 'Dieser Link ist nicht mehr gültig, bitte fordere einen neuen an.',
+    ][$this->error]; ?>
+<?php elseif ($this->success): ?>
+    <?php echo [
+        'email-sent' => 'Eine E-Mail mit weiteren Instruktionen wurde dir zugesand.',
+    ][$this->success]; ?>
+<?php endif; ?>
