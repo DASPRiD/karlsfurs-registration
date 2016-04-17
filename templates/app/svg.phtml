@@ -8,11 +8,11 @@
         return $attendee->getWalkStatus() !== App\Entity\Attendee::STATUS_NO;
     });
     ?>
-    <text x="10" y="<?php echo $y; ?>" font-size="14" font-weight="bold" font-family="sans-serif"><?php echo $this->escapeHtml($group->getName()); ?></text>
+    <text x="0" y="<?php echo $y; ?>"  font-size="12" font-weight="bold" font-family="sans-serif" fill="#371a01"><?php echo $this->escapeHtml($group->getName()); ?></text>
 
     <?php foreach ($groupAttendees as $attendee): ?>
-        <?php $y += 20; ?>
-        <text x="10" y="<?php echo $y; ?>" font-size="14"  font-family="sans-serif">
+        <?php $y += 16; ?>
+        <text x="0" y="<?php echo $y; ?>" font-size="12"  font-family="sans-serif" fill="#371a01">
             <?php echo $this->escapeHtml($attendee->getName()); ?>
             <?php if ($attendee->getWalkStatus() === App\Entity\Attendee::STATUS_MAYBE): ?>
                 (?)
@@ -20,7 +20,7 @@
         </text>
     <?php endforeach; ?>
 
-    <?php $y += 40; ?>
+    <?php $y += 32; ?>
 <?php endforeach; ?>
 
 <?php $contents = ob_get_clean(); ?>
