@@ -9,13 +9,13 @@ return [
     'logged-in-as' => 'Angemeldet als {emailAddress}',
     'registration-and-attendees' => 'Registrierung und Teilnehmer',
     'lead-paragraph' => '
-        Der nächste Karlsfurs Suitwalk findet am <strong>{nextDate, date, long}</strong> statt. Für weitere Details, wie
+        Der nächste suitwalk findet am <strong>{nextDate, date, long}</strong> statt. Für weitere Details, wie
         Treffpunkt, Ablauf und Zeiten, schau bitte in den entsprechenden
         <a href="{furbaseThreadUrl}">Furbase Thread</a>.
     ',
     'registration-hint' => '
-        Um dich für den Suitwalk zu registrieren, melde dich bitte oben mit deiner E-Mail Adresse an. Du erhälst dann
-        einen Link per E-Mail, mit dem du dich in die Liste eintragen kannst.
+        Um dich für den Karlsfurs Suitwalk zu registrieren, melde dich bitte oben mit deiner E-Mail Adresse an. Du
+        erhälst dann einen Link per E-Mail, mit dem du dich in die Liste eintragen kannst.
     ',
     'login-email-subject' => 'Karlsfurs Suitwalk Anmeldung',
     'login-email-body' => '
