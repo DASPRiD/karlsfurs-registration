@@ -9,7 +9,7 @@ class SuitwalkOptionsHelperFactory
     public function __invoke(ContainerInterface $container)
     {
         return new SuitwalkOptionsHelper(
-            $container->getServiceLocator()->get(SuitwalkOptions::class)
+            $container->get(SuitwalkOptions::class)
         );
     }
 }
