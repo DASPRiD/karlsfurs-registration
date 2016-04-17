@@ -1,7 +1,7 @@
 <h1 class="page-header">Registrierung und Teilnehmer</h1>
 
 <p>
-    <?php $dateFormat = new IntlDateFormatter('de-de', IntlDateFormatter::MEDIUM, IntlDateFormatter::NONE); ?>
+    <?php $dateFormat = new IntlDateFormatter('de-de', IntlDateFormatter::LONG, IntlDateFormatter::NONE); ?>
     Der nächste Suitwalk findet am <strong><?php echo $dateFormat->format($this->suitwalkOptions()->getNextDate()); ?>
     </strong> statt. Für weitere Details, wie Treffpunkt, Ablauf und
     Zeiten, schau bitte in den entsprechenden
