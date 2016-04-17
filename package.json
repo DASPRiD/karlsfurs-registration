@@ -1,0 +1,24 @@
+{
+  "name": "karlsfurs-suitwalk",
+  "version": "1.0.0",
+  "description": "Karlsfurs Registration System",
+  "main": "gulpfile.js",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "gulp": "~3.9.1",
+    "gulp-real-favicon": "~0.2.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/DASPRiD/karlsfurs-registration.git"
+  },
+  "author": "Ben 'DASPRiD' Scholzen",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/DASPRiD/karlsfurs-registration/issues"
+  }
+}
