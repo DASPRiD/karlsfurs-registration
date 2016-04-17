@@ -50,6 +50,6 @@ class LocaleMiddleware
             $this->translator->setLocale($this->container->locale);
         }
 
-        $this->helper->setUri($request->getUri());
+        return $next($request, $response);
     }
 }
