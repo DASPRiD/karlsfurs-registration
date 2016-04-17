@@ -1,5 +1,5 @@
 <?php
-use Zend\Form\ConfigProvider;
+use Zend\I18n\ConfigProvider;
 
 $provider = new ConfigProvider();
 return $provider();

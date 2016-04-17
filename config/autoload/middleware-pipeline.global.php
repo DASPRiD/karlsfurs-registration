@@ -6,6 +6,7 @@ return [
     'dependencies' => [
         'factories' => [
             Helper\ServerUrlMiddleware::class => Helper\ServerUrlMiddlewareFactory::class,
+            App\Helper\LocaleMiddleware::class => App\Helper\LocaleMiddlewareFactory::class,
             Helper\UrlHelperMiddleware::class => Helper\UrlHelperMiddlewareFactory::class,
         ],
     ],
@@ -13,6 +14,7 @@ return [
         'always' => [
             'middleware' => [
                 Helper\ServerUrlMiddleware::class,
+                App\Helper\LocaleMiddleware::class,
             ],
             'priority' => 10000,
         ],

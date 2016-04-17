@@ -102,14 +102,14 @@ class HomePageAction
         $form->setHydrator($this->getHydrator());
         $form->add([
             'name' => 'name',
-            'options' => ['label' => 'Name'],
+            'options' => ['label' => 'name'],
             'attributes' => ['class' => 'form-control', 'required' => 'required', 'maxlength' => 32],
             'type' => 'text',
         ]);
         $form->add([
             'name' => 'group',
             'options' => [
-                'label' => 'Gruppe',
+                'label' => 'group',
                 'value_options' => $groupOptions,
             ],
             'attributes' => ['class' => 'form-control', 'required' => 'required'],
@@ -118,11 +118,11 @@ class HomePageAction
         $form->add([
             'name' => 'walkStatus',
             'options' => [
-                'label' => 'Walk',
+                'label' => 'walk',
                 'value_options' => [
-                    Attendee::STATUS_YES => 'ja',
-                    Attendee::STATUS_NO => 'nein',
-                    Attendee::STATUS_MAYBE => 'vielleicht',
+                    Attendee::STATUS_YES => 'yes',
+                    Attendee::STATUS_NO => 'no',
+                    Attendee::STATUS_MAYBE => 'maybe',
                 ],
             ],
             'attributes' => ['class' => 'form-control', 'required' => 'required'],
@@ -131,11 +131,11 @@ class HomePageAction
         $form->add([
             'name' => 'dinnerStatus',
             'options' => [
-                'label' => 'Essen',
+                'label' => 'dinner',
                 'value_options' => [
-                    Attendee::STATUS_YES => 'ja',
-                    Attendee::STATUS_NO => 'nein',
-                    Attendee::STATUS_MAYBE => 'vielleicht',
+                    Attendee::STATUS_YES => 'yes',
+                    Attendee::STATUS_NO => 'no',
+                    Attendee::STATUS_MAYBE => 'maybe',
                 ],
             ],
             'attributes' => ['class' => 'form-control', 'required' => 'required'],

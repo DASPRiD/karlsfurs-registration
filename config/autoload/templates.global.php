@@ -27,6 +27,7 @@ return [
         'factories' => [
             'login' => App\Helper\LoginHelperFactory::class,
             'suitwalkOptions' => App\Helper\SuitwalkOptionsHelperFactory::class,
+            'messageFormat' => App\Helper\MessageFormatHelperFactory::class,
         ],
     ],
 ];

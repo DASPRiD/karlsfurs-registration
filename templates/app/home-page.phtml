@@ -1,11 +1,13 @@
-<h1 class="page-header">Registrierung und Teilnehmer</h1>
+<h1 class="page-header"><?php echo $this->translate('registration-and-attendees'); ?></h1>
 
 <p>
-    <?php $dateFormat = new IntlDateFormatter('de-de', IntlDateFormatter::LONG, IntlDateFormatter::NONE); ?>
-    Der nächste Suitwalk findet am <strong><?php echo $dateFormat->format($this->suitwalkOptions()->getNextDate()); ?>
-    </strong> statt. Für weitere Details, wie Treffpunkt, Ablauf und
-    Zeiten, schau bitte in den entsprechenden
-    <a href="<?php echo $this->suitwalkOptions()->getFurbaseThreadUrl(); ?>">Furbase Thread</a>.
+    <?php echo $this->messageFormat(
+        $this->translate('lead-paragraph'),
+        [
+            'nextDate' => $this->suitwalkOptions()->getNextDate(),
+            'furbaseThreadUrl' => $this->suitwalkOptions()->getFurbaseThreadUrl(),
+        ]
+    ); ?>
 </p>
 
 <?php if (null !== $this->login()): ?>
@@ -29,18 +31,17 @@
             <?php echo $this->formElement($this->form->get('dinnerStatus')); ?>
         </div>
 
-        <button type="submit" class="btn btn-success">Eintrag ändern</button>
+        <button type="submit" class="btn btn-success"><?php echo $this->translate('change-registration'); ?></button>
     </form>
     </div>
 </div>
 <?php else: ?>
     <p>
-        Um dich für den Suitwalk zu registrieren, melde dich bitte oben mit deiner E-Mail Adresse an. Du erhälst dann
-        einen Link per E-Mail, mit dem du dich in die Liste eintragen kannst.
+        <?php echo $this->translate('registration-hint'); ?>
     </p>
 <?php endif ?>
 
-<h2>Walk-Teilnehmer</h2>
+<h2><?php echo $this->translate('walk-attendees'); ?></h2>
 <div class="row">
     <?php
     $certainDinnerAttendees = 0;
@@ -64,7 +65,7 @@
         <div class="col-md-3">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <?php echo $this->escapeHtml($group->getName()); ?>
+                    <?php echo $this->translate($group->getName()); ?>
                     <span class="badge"><?php echo count($groupAttendees); ?></span>
                 </div>
                 <div class="panel-body">
@@ -84,17 +85,13 @@
     <?php endforeach; ?>
 </div>
 
-<h2>Essen-Teilnehmer</h2>
+<h2><?php echo $this->translate('dinner-attendees'); ?></h2>
 <p>
-    <?php echo MessageFormatter::formatMessage(
-        'de_DE',
-        '
-            Es
-            {0, plural, =0{hat sich <strong>keine</strong> Person} =1{hat sich <strong>eine</strong> Person} other{haben sich <strong>#</strong> Personen}}
-            fest zum Essen eingetragen,
-            {1, plural, =0{<strong>keine</strong> Person weiß} =1{<strong>eine</strong> Person weiß} other{<strong>#</strong> Personen wissen}}
-            es noch nicht.
-        ',
-        [$certainDinnerAttendees, $uncertainDinnerAttendees]
+    <?php echo $this->messageFormat(
+        $this->translate('dinner-attendee-information'),
+        [
+            'certainDinnerAttendees' => $certainDinnerAttendees,
+            'uncertainDinnerAttendees' => $uncertainDinnerAttendees
+        ]
     ); ?>
 </p>

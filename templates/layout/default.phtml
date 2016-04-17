@@ -9,7 +9,7 @@ $this->inlineScript()
     ->prependFile('https://code.jquery.com/jquery-2.2.3.min.js');
 ?>
 <!DOCTYPE html>
-<html lang="de">
+<html lang="<?php echo $this->translate('language-code'); ?>">
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -52,34 +52,39 @@ $this->inlineScript()
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="<?php echo $this->suitwalkOptions()->getFurbaseThreadUrl(); ?>">Furbase Thread</a></li>
-                    <li><a href="<?php echo $this->suitwalkOptions()->getTelegramGroupUrl(); ?>">Telegram Gruppe</a></li>
+                    <li><a href="<?php echo $this->suitwalkOptions()->getFurbaseThreadUrl(); ?>"><?php echo $this->translate('furbase-thread'); ?></a></li>
+                    <li><a href="<?php echo $this->suitwalkOptions()->getTelegramGroupUrl(); ?>"><?php echo $this->translate('telegram-group'); ?></a></li>
                 </ul>
 
                 <?php $emailAddress = $this->login(); ?>
                 <?php if (null === $emailAddress): ?>
                     <form class="navbar-form navbar-right" method="POST" action="<?php echo $this->url('login'); ?>">
                         <div class="form-group">
-                            <input type="email" name="emailAddress" placeholder="E-Mail Adresse" class="form-control">
+                            <input type="email" name="emailAddress" placeholder="<?php echo $this->translate('email-address'); ?>" class="form-control">
                         </div>
-                        <button type="submit" class="btn btn-success">Anmelden</button>
+                        <button type="submit" class="btn btn-success"><?php echo $this->translate('login'); ?></button>
                     </form>
                 <?php else: ?>
                     <ul class="nav navbar-nav navbar-right">
                         <li>
                             <p class="navbar-text">
-                                Angemeldet als <?php echo $this->escapeHtml($emailAddress); ?>
+                                <?php echo $this->messageFormat($this->translate('logged-in-as'), ['emailAddress' => $this->escapeHtml($emailAddress)]); ?>
                             </p>
                         </li>
                         <li>
-                            <a href="<?php echo $this->url('logout'); ?>">Abmelden</a>
+                            <a href="<?php echo $this->url('logout'); ?>"><?php echo $this->translate('logout'); ?></a>
                         </li>
                     </ul>
                 <?php endif; ?>
             </div>
         </nav>
 
-        <header id="header"></header>
+        <header id="header">
+            <ul class="language-selection">
+                <li class="german<?php if ('de' === $this->translate('language-code')): ?> active<?php endif; ?>"><a href="<?php echo $this->url('language', ['locale' => 'de-DE']); ?>">Deutsch</a></li>
+                <li class="english<?php if ('en' === $this->translate('language-code')): ?> active<?php endif; ?>"><a href="<?php echo $this->url('language', ['locale' => 'en-US']); ?>">English</a></li>
+            </ul>
+        </header>
 
         <div id="content">
             <?php echo $this->content ?>
@@ -87,7 +92,7 @@ $this->inlineScript()
 
         <footer id="footer">
             <p>
-                Copyright 2016 by Ben 'DASPRiD' Scholzen |
+                Copyright 2016 Ben 'DASPRiD' Scholzen |
                 <a href="https://github.com/DASPRiD/karlsfurs-registration">GitHub</a>
             </p>
         </footer>

@@ -91,16 +91,17 @@ class LoginAction
 
             $emailAddress = $inputFilter->getValue('emailAddress');
             $token = $this->generateToken($emailAddress);
+            $messageData = json_decode($this->template->render('app::login-email', [
+                'token' => (string) $token,
+                'layout' => 'layout::email',
+            ]), true);
 
             $mail = new Message();
             $mail->setEncoding('UTF-8');
             $mail->setFrom('noreply@karlsfurs.dasprids.de');
             $mail->setTo($emailAddress);
-            $mail->setSubject('Karlsfurs Suitwalk Anmeldung');
-            $mail->setBody($this->template->render('app::login-email', [
-                'token' => (string) $token,
-                'layout' => 'layout::email',
-            ]));
+            $mail->setSubject($messageData['subject']);
+            $mail->setBody($messageData['body']);
 
             $transport = new Sendmail();
             $transport->send($mail);

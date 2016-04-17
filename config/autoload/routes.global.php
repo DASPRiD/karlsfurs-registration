@@ -10,6 +10,7 @@ return [
             App\Action\SvgAction::class => App\Action\SvgActionFactory::class,
             App\Action\LoginAction::class => App\Action\LoginActionFactory::class,
             App\Action\LogoutAction::class => App\Action\LogoutActionFactory::class,
+            App\Action\LanguageAction::class => App\Action\LanguageActionFactory::class,
         ],
     ],
     'routes' => [
@@ -41,6 +42,12 @@ return [
             'name' => 'logout',
             'path' => '/logout',
             'middleware' => App\Action\LogoutAction::class,
+            'allowed_methods' => ['GET'],
+        ],
+        [
+            'name' => 'language',
+            'path' => '/language/{locale}',
+            'middleware' => App\Action\LanguageAction::class,
             'allowed_methods' => ['GET'],
         ],
     ],
