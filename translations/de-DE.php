@@ -9,7 +9,7 @@ return [
     'logged-in-as' => 'Angemeldet als {emailAddress}',
     'registration-and-attendees' => 'Registrierung und Teilnehmer',
     'lead-paragraph' => '
-        Der nächste suitwalk findet am <strong>{nextDate, date, long}</strong> statt. Für weitere Details, wie
+        Der nächste Suitwalk findet am <strong>{nextDate, date, long}</strong> statt. Für weitere Details, wie
         Treffpunkt, Ablauf und Zeiten, schau bitte in den entsprechenden
         <a href="{furbaseThreadUrl}">Furbase Thread</a>.
     ',
