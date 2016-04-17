@@ -14,6 +14,7 @@ return [
             App\Repository\GroupRepository::class => App\Repository\GroupRepositoryFactory::class,
             App\Repository\AttendeeRepository::class => App\Repository\AttendeeRepositoryFactory::class,
             App\Helper\LoginHelper::class => App\Helper\LoginHelperFactory::class,
+            App\Options\SuitwalkOptions::class => App\Options\SuitwalkOptionsFactory::class,
         ],
     ],
 ];

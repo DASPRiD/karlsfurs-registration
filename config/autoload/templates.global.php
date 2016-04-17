@@ -26,6 +26,7 @@ return [
     'view_helpers' => [
         'factories' => [
             'login' => App\Helper\LoginHelperFactory::class,
+            'suitwalkOptions' => App\Helper\SuitwalkOptionsHelperFactory::class,
         ],
     ],
 ];

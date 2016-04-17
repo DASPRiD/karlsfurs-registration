@@ -16,4 +16,9 @@ return [
         'signatureKey' => 'key',
         'verificationKey' => 'key',
     ],
+    'suitwalk' => [
+        'next_date' => '', // YYYY-MM-DD
+        'furbase_thread_url' => '',
+        'telegram_group_url' => '',
+    ],
 ];
