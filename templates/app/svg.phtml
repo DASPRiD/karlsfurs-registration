@@ -8,7 +8,7 @@
         return $attendee->getWalkStatus() !== App\Entity\Attendee::STATUS_NO;
     });
     ?>
-    <text x="0" y="<?php echo $y; ?>"  font-size="12" font-weight="bold" font-family="sans-serif" fill="#371a01"><?php echo $this->escapeHtml($group->getName()); ?></text>
+    <text x="0" y="<?php echo $y; ?>"  font-size="12" font-weight="bold" font-family="sans-serif" fill="#371a01"><?php echo $this->translate($group->getName()); ?></text>
 
     <?php foreach ($groupAttendees as $attendee): ?>
         <?php $y += 16; ?>
