@@ -37,7 +37,7 @@ return [
     'walk-attendees' => 'Walk attendees',
     'suiters' => 'Suiters',
     'spotters' => 'Spotters',
-    'photographs' => 'Photographs',
+    'photographers' => 'Photographers',
     'guests' => 'Guests',
     'dinner-attendees' => 'Dinner attendees',
     'dinner-attendee-information' => '

@@ -38,7 +38,7 @@ return [
     'walk-attendees' => 'Walk-Teilnehmer',
     'suiters' => 'Suiter',
     'spotters' => 'Spotter',
-    'photographs' => 'Fotografen',
+    'photographers' => 'Fotografen',
     'guests' => 'Gäste',
     'dinner-attendees' => 'Essen-Teilnehmer',
     'dinner-attendee-information' => '
