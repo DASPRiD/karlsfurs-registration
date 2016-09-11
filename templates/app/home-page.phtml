@@ -1,4 +1,9 @@
-<h1 class="page-header"><?php echo $this->translate('registration-and-attendees'); ?></h1>
+<h1 class="page-header"><?php echo $this->messageFormat(
+    $this->translate('suitwalk-headline'),
+    [
+        'nextDate' => $this->suitwalkOptions()->getNextDate(),
+    ]
+); ?></h1>
 
 <p>
     <?php echo $this->messageFormat(
@@ -6,9 +11,12 @@
         [
             'nextDate' => $this->suitwalkOptions()->getNextDate(),
             'furbaseThreadUrl' => $this->suitwalkOptions()->getFurbaseThreadUrl(),
+            'telegramGroupUrl' => $this->suitwalkOptions()->getTelegramGroupUrl(),
         ]
     ); ?>
 </p>
+
+<h2><?php echo $this->translate('registration'); ?></h2>
 
 <?php if (null !== $this->login()): ?>
 <div class="panel panel-default">
@@ -40,6 +48,67 @@
         <?php echo $this->translate('registration-hint'); ?>
     </p>
 <?php endif ?>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2><?php echo $this->translate('meeting-point'); ?></h2>
+
+        <address>
+            <?php echo nl2br($this->suitwalkOptions()->getMeetingPointAddress()); ?>
+        </address>
+
+        <iframe
+            src="<?php echo $this->suitwalkOptions()->getMeetingPointEmbedUrl(); ?>"
+            accesskey=""
+            class="map"
+            allowfullscreen="allowfullscreen"
+        ></iframe>
+    </div>
+    <div class="col-md-4">
+        <h2><?php echo $this->translate('restaurant'); ?></h2>
+
+        <address>
+            <?php echo nl2br($this->suitwalkOptions()->getRestaurantAddress()); ?>
+        </address>
+
+        <iframe
+            src="<?php echo $this->suitwalkOptions()->getRestaurantEmbedUrl(); ?>"
+            accesskey=""
+            class="map"
+            allowfullscreen="allowfullscreen"
+        ></iframe>
+    </div>
+    <div class="col-md-4">
+        <h2><?php echo $this->translate('schedule'); ?></h2>
+
+        <ul class="list-unstyled">
+            <li><?php echo $this->messageFormat(
+                $this->translate('schedule:meeting-time'),
+                [
+                    'meetingTime' => $this->suitwalkOptions()->getMeetingTime()
+                ]
+            ); ?></li>
+            <li><?php echo $this->messageFormat(
+                $this->translate('schedule:departure-time'),
+                [
+                    'departureTime' => $this->suitwalkOptions()->getDepartureTime()
+                ]
+            ); ?></li>
+            <li><?php echo $this->messageFormat(
+                $this->translate('schedule:return-time'),
+                [
+                    'returnTime' => $this->suitwalkOptions()->getReturnTime()
+                ]
+            ); ?></li>
+            <li><?php echo $this->messageFormat(
+                $this->translate('schedule:dinner-time'),
+                [
+                    'dinnerTime' => $this->suitwalkOptions()->getDinnerTime()
+                ]
+            ); ?></li>
+        </ul>
+    </div>
+</div>
 
 <h2><?php echo $this->translate('walk-attendees'); ?></h2>
 <div class="row">

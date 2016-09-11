@@ -109,6 +109,12 @@ body > .container {
     padding: 20px;
 }
 
+.map {
+    border: 1px solid #101010;
+    width: 300px;
+    height: 200px;
+}
+
 #footer {
     padding: 20px;
 

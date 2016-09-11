@@ -7,15 +7,23 @@ return [
     'login' => 'Login',
     'logout' => 'Logout',
     'logged-in-as' => 'Logged in as {emailAddress}',
-    'registration-and-attendees' => 'Registration and attendees',
+    'suitwalk-headline' => 'Suitwalk on {nextDate, date, long}',
     'lead-paragraph' => '
-        The next suitwalk will be on <strong>{nextDate, date, long}</strong>. For additional details, like gathering
-        place, procedure and times, please refer to the  <a href="{furbaseThreadUrl}">Furbase thread</a>.
+        The next suitwalk will be held on {nextDate, date, long}. For questions or discussions, please refer to the
+        <a href="{furbaseThreadUrl}">Furbase thread</a> or our <a href="{telegramGroupUrl}">Telegram group</a>.
     ',
+    'registration' => 'Registration',
     'registration-hint' => '
         To register for the Karlsfurs Suitwalk, please log in above with your email address. You will receive a link
         via email with which you can add yourself to the list.
     ',
+    'meeting-point' => 'Meeting point',
+    'restaurant' => 'Restaurant',
+    'schedule' => 'Schedule',
+    'schedule:meeting-time' => '<strong>{meetingTime, time, short}</strong>: Meet up',
+    'schedule:departure-time' => '<strong>{departureTime, time, short}</strong>: Departure',
+    'schedule:return-time' => '<strong>{returnTime, time, short}</strong>: Return',
+    'schedule:dinner-time' => '<strong>{dinnerTime, time, short}</strong>: Dinner',
     'login-email-subject' => 'Karlsfurs Suitwalk login',
     'login-email-body' => '
         Hello!
