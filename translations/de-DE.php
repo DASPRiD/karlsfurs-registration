@@ -9,7 +9,7 @@ return [
     'logged-in-as' => 'Angemeldet als {emailAddress}',
     'suitwalk-headline' => 'Suitwalk am {nextDate, date, long}',
     'lead-paragraph' => '
-        Der nächste Suitwalk findet am {nextDate, date, long} statt. Für Fragen oder Diskussion schau
+        Der nächste Suitwalk findet am {nextDate, date, long} statt. Für Fragen oder Diskussionen schau
         bitte in den entsprechenden <a href="{furbaseThreadUrl}">Furbase Thread</a> oder in unsere
         <a href="{telegramGroupUrl}">Telegram Gruppe</a>.
     ',
