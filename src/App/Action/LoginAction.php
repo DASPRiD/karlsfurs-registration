@@ -98,7 +98,7 @@ class LoginAction
 
             $mail = new Message();
             $mail->setEncoding('UTF-8');
-            $mail->setFrom('noreply@karlsfurs.dasprids.de');
+            $mail->setFrom('noreply@karlsfurs.de');
             $mail->setTo($emailAddress);
             $mail->setSubject($messageData['subject']);
             $mail->setBody($messageData['body']);
