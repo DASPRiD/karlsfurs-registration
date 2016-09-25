@@ -42,6 +42,11 @@ class SuitwalkOptions extends AbstractOptions
     private $meetingPointEmbedUrl;
 
     /**
+     * @var string[]
+     */
+    private $meetingPointAdditionalInformation;
+
+    /**
      * @var string
      */
     private $restaurantAddress;
@@ -115,6 +120,15 @@ class SuitwalkOptions extends AbstractOptions
     public function getMeetingPointEmbedUrl()
     {
         return $this->meetingPointEmbedUrl;
+    }
+
+    /**
+     * @param string $languageCode
+     * @return string
+     */
+    public function getMeetingPointAdditionalInformation($languageCode)
+    {
+        return $this->meetingPointAdditionalInformation[$languageCode];
     }
 
     /**
@@ -223,6 +237,14 @@ class SuitwalkOptions extends AbstractOptions
     public function setMeetingPointEmbedUrl($meetingPointEmbedUrl)
     {
         $this->meetingPointEmbedUrl = $meetingPointEmbedUrl;
+    }
+
+    /**
+     * @param array $meetingPointAdditionalInformation
+     */
+    public function setMeetingPointAdditionalInformation(array $meetingPointAdditionalInformation)
+    {
+        $this->meetingPointAdditionalInformation = $meetingPointAdditionalInformation;
     }
 
     /**

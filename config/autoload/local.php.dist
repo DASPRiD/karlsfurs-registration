@@ -22,6 +22,14 @@ return [
         'departure-time' => '', // HH:II
         'return-time' => '', // HH:II
         'dinner-time' => '', // HH:II
+        'meeting_point_address' => "",
+        'meeting_point_embed_url' => '',
+        'meeting_point_additional_information' => [
+            'de' => '',
+            'en' => '',
+        ],
+        'restaurant_address' => "",
+        'restaurant_embed_url' => '',
         'furbase_thread_url' => '',
         'telegram_group_url' => '',
     ],

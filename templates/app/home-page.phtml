@@ -54,7 +54,7 @@
         <h2><?php echo $this->translate('meeting-point'); ?></h2>
 
         <address>
-            <?php echo nl2br($this->suitwalkOptions()->getMeetingPointAddress()); ?>
+            <?php echo nl2br($this->escapeHtml($this->suitwalkOptions()->getMeetingPointAddress())); ?>
         </address>
 
         <iframe
@@ -68,7 +68,7 @@
         <h2><?php echo $this->translate('restaurant'); ?></h2>
 
         <address>
-            <?php echo nl2br($this->suitwalkOptions()->getRestaurantAddress()); ?>
+            <?php echo nl2br($this->escapeHtml($this->suitwalkOptions()->getRestaurantAddress())); ?>
         </address>
 
         <iframe
@@ -87,7 +87,8 @@
                 [
                     'meetingTime' => $this->suitwalkOptions()->getMeetingTime()
                 ]
-            ); ?></li>
+            ); ?>
+            (<?php echo $this->suitwalkOptions()->getMeetingPointAdditionalInformation($this->translate('language-code')); ?>)</li>
             <li><?php echo $this->messageFormat(
                 $this->translate('schedule:departure-time'),
                 [
