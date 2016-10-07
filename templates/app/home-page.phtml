@@ -114,8 +114,8 @@
 <h2><?php echo $this->translate('walk-attendees'); ?></h2>
 <div class="row">
     <?php
-    $certainDinnerAttendees = 0;
-    $uncertainDinnerAttendees = 0;
+    $certainDinnerAttendees = [];
+    $uncertainDinnerAttendees = [];
     ?>
 
     <?php foreach ($this->groups as $group): ?>
@@ -124,13 +124,13 @@
             return $attendee->getWalkStatus() !== App\Entity\Attendee::STATUS_NO;
         });
 
-        $certainDinnerAttendees += count($group->getAttendees()->filter(function (App\Entity\Attendee $attendee) {
+        $certainDinnerAttendees = array_merge($group->getAttendees()->filter(function (App\Entity\Attendee $attendee) {
             return $attendee->getDinnerStatus() === App\Entity\Attendee::STATUS_YES;
-        }));
+        })->toArray(), $certainDinnerAttendees);
 
-        $uncertainDinnerAttendees += count($group->getAttendees()->filter(function (App\Entity\Attendee $attendee) {
+        $uncertainDinnerAttendees = array_merge($group->getAttendees()->filter(function (App\Entity\Attendee $attendee) {
             return $attendee->getDinnerStatus() === App\Entity\Attendee::STATUS_MAYBE;
-        }));
+        })->toArray(), $uncertainDinnerAttendees);
         ?>
         <div class="col-md-3">
             <div class="panel panel-default">
@@ -141,11 +141,8 @@
                 <div class="panel-body">
                     <ul class="list-unstyled">
                         <?php foreach ($groupAttendees as $attendee): ?>
-                            <li>
+                            <li class="status-<?php echo $attendee->getWalkStatus(); ?>">
                                 <?php echo $this->escapeHtml($attendee->getName()); ?>
-                                <?php if ($attendee->getWalkStatus() === App\Entity\Attendee::STATUS_MAYBE): ?>
-                                    (?)
-                                <?php endif; ?>
                             </li>
                         <?php endforeach; ?>
                     </ul>
@@ -157,11 +154,27 @@
 
 <h2><?php echo $this->translate('dinner-attendees'); ?></h2>
 <p>
-    <?php echo $this->messageFormat(
+    <?php
+    echo $this->messageFormat(
         $this->translate('dinner-attendee-information'),
         [
-            'certainDinnerAttendees' => $certainDinnerAttendees,
-            'uncertainDinnerAttendees' => $uncertainDinnerAttendees
+            'certainDinnerAttendees' => count($certainDinnerAttendees),
+            'uncertainDinnerAttendees' => count($uncertainDinnerAttendees),
         ]
-    ); ?>
+    );
+
+    $dinnerAttendees = array_merge($certainDinnerAttendees, $uncertainDinnerAttendees);
+    $collator = new Collator('en-US');
+    usort($dinnerAttendees, function (App\Entity\Attendee $a, App\Entity\Attendee $b) use ($collator) {
+        return $collator->compare($a->getName(), $b->getName());
+    });
+    ?>
+
+    <ul class="dinner-attendees">
+        <?php foreach ($dinnerAttendees as $attendee): ?>
+            <li class="status-<?php echo $attendee->getDinnerStatus(); ?>">
+                <?php echo $this->escapeHtml($attendee->getName()); ?>
+            </li>
+        <?php endforeach; ?>
+    </ul>
 </p>

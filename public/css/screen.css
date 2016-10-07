@@ -105,6 +105,33 @@ body > .container {
     background-color: #f7fafb;
 }
 
+.status-yes {
+    color: #4e8749;
+}
+
+.status-maybe {
+    color: #c19614;
+}
+
+.dinner-attendees {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.dinner-attendees > li {
+    display: inline;
+}
+
+.dinner-attendees > li:after {
+    content: ' | ';
+    color: #333;
+}
+
+.dinner-attendees > li:last-child:after {
+    content: '';
+}
+
 #content {
     padding: 20px;
 }
