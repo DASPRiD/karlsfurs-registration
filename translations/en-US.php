@@ -59,4 +59,9 @@ return [
             other{<strong>#</strong> people don\'t}
         } know it yet.
     ',
+    'legend' => 'Legend',
+    'legend-certain-term' => 'green',
+    'legend-certain-definition' => 'certain attendance',
+    'legend-uncertain-term' => 'orange',
+    'legend-uncertain-definition' => 'uncertain attendance',
 ];

@@ -105,11 +105,13 @@ body > .container {
     background-color: #f7fafb;
 }
 
-.status-yes {
+.status-yes,
+.legend > dt.certain {
     color: #4e8749;
 }
 
-.status-maybe {
+.status-maybe,
+.legend > dt.uncertain {
     color: #c19614;
 }
 
@@ -129,6 +131,28 @@ body > .container {
 }
 
 .dinner-attendees > li:last-child:after {
+    content: '';
+}
+
+.legend > dt {
+    display: inline-block;
+}
+
+.legend > dt:after {
+    content: ':';
+    color: #333;
+}
+
+.legend > dd {
+    display: inline-block;
+}
+
+.legend > dd:after {
+    content: ' | ';
+    color: #333;
+}
+
+.legend > dd:last-child:after {
     content: '';
 }
 

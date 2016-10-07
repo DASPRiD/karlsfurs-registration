@@ -60,4 +60,9 @@ return [
             other{<strong>#</strong> Personen wissen}
         } es noch nicht.
     ',
+    'legend' => 'Legende',
+    'legend-certain-term' => 'Grün',
+    'legend-certain-definition' => 'Sichere Teilnahme',
+    'legend-uncertain-term' => 'Orange',
+    'legend-uncertain-definition' => 'Unsichere Teilnahme',
 ];
