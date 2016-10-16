@@ -3,6 +3,7 @@ namespace App\Action;
 
 use App\Action\HomePageAction;
 use App\Helper\LoginHelper;
+use App\Options\SuitwalkOptions;
 use App\Repository\AttendeeRepository;
 use App\Repository\GroupRepository;
 use Interop\Container\ContainerInterface;
@@ -17,7 +18,8 @@ class HomePageActionFactory
             $container->get(GroupRepository::class),
             $container->get(AttendeeRepository::class),
             $container->get('doctrine.entity_manager.orm_default'),
-            $container->get(LoginHelper::class)
+            $container->get(LoginHelper::class),
+            $container->get(SuitwalkOptions::class)
         );
     }
 }

@@ -4,8 +4,10 @@ namespace App\Action;
 use App\Entity\Attendee;
 use App\Entity\Group;
 use App\Helper\LoginHelper;
+use App\Options\SuitwalkOptions;
 use App\Repository\AttendeeRepository;
 use App\Repository\GroupRepository;
+use DateTimeImmutable;
 use Doctrine\Common\Persistence\ObjectManager;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -45,40 +47,52 @@ class HomePageAction
      */
     private $loginHelper;
 
+    /**
+     * @var SuitwalkOptions
+     */
+    private $suitwalkOptions;
+
     public function __construct(
         TemplateRendererInterface $template,
         GroupRepository $groupRepository,
         AttendeeRepository $attendeeRepository,
         ObjectManager $objectManager,
-        LoginHelper $loginHelper
+        LoginHelper $loginHelper,
+        SuitwalkOptions $suitwalkOptions
     ) {
         $this->template = $template;
         $this->groupRepository = $groupRepository;
         $this->attendeeRepository = $attendeeRepository;
         $this->objectManager = $objectManager;
         $this->loginHelper = $loginHelper;
+        $this->suitwalkOptions = $suitwalkOptions;
     }
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
     {
         $groups = $this->groupRepository->findAll();
-        $form = $this->getForm($groups);
+        $registrationClosed = (new DateTimeImmutable() > $this->suitwalkOptions->getNextDate());
 
-        if ('POST' === $request->getMethod()) {
-            $form->setData($request->getParsedBody());
+        if (!$registrationClosed) {
+            $form = $this->getForm($groups);
 
-            if ($form->isValid()) {
-                $attendee = $form->getData();
-                $attendee->updateLastUpdateDateTime();
-                $this->objectManager->persist($attendee);
-                $this->objectManager->flush();
-                return new RedirectResponse($request->getUri());
+            if (null !== $form && 'POST' === $request->getMethod()) {
+                $form->setData($request->getParsedBody());
+
+                if ($form->isValid()) {
+                    $attendee = $form->getData();
+                    $attendee->updateLastUpdateDateTime();
+                    $this->objectManager->persist($attendee);
+                    $this->objectManager->flush();
+                    return new RedirectResponse($request->getUri());
+                }
             }
         }
 
         return new HtmlResponse($this->template->render('app::home-page', [
             'form' => $form,
             'groups' => $groups,
+            'registrationClosed' => $registrationClosed,
         ]));
     }
 
@@ -89,6 +103,10 @@ class HomePageAction
     private function getForm($groups)
     {
         if (null === $this->loginHelper->getEmailAddress()) {
+            return null;
+        }
+
+        if (new DateTimeImmutable() > $this->suitwalkOptions->getNextDate()) {
             return null;
         }
 

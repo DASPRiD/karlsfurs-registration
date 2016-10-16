@@ -18,7 +18,11 @@
 
 <h2><?php echo $this->translate('registration'); ?></h2>
 
-<?php if (null !== $this->login()): ?>
+<?php if ($this->registrationClosed): ?>
+    <p>
+        <?php echo $this->translate('registration-closed-hint'); ?>
+    </p>
+<?php elseif (null !== $this->login()): ?>
 <div class="panel panel-default">
     <div class="panel-body">
     <form class="form-inline" method="post" action="<?php echo $this->url('home'); ?>">

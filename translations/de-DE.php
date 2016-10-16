@@ -18,6 +18,7 @@ return [
         Um dich für den Karlsfurs Suitwalk zu registrieren, melde dich bitte oben mit deiner E-Mail Adresse an. Du
         erhälst dann einen Link per E-Mail, mit dem du dich in die Liste eintragen kannst.
     ',
+    'registration-closed-hint' => 'Die Registrierung ist geschlossen.',
     'meeting-point' => 'Treffpunkt',
     'restaurant' => 'Restaurant',
     'schedule' => 'Zeitplan',
