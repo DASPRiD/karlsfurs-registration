@@ -4,10 +4,11 @@ declare(strict_types = 1);
 namespace Suitwalk\Infrastructure\Middleware;
 
 use Psr\Http\Message\ResponseInterface;
-use Soliant\AgroLiquid\Infrastructure\Response\ResponseRendererInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Suitwalk\Domain\Group\GetAllGroupsInterface;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\Stream;
+use Zend\Expressive\Template\TemplateRendererInterface;
 
 final class Svg
 {
@@ -17,14 +18,21 @@ final class Svg
     private $getAllGroup;
 
     /**
-     * @var ResponseRendererInterface
+     * @var TemplateRendererInterface
      */
     private $templateRenderer;
 
-    public function __invoke() : ResponseInterface
+    public function __construct(GetAllGroupsInterface $getAllGroup, TemplateRendererInterface $templateRenderer)
+    {
+        $this->getAllGroup = $getAllGroup;
+        $this->templateRenderer = $templateRenderer;
+    }
+
+    public function __invoke(ServerRequestInterface $request) : ResponseInterface
     {
         $body = new Stream('php://temp', 'wb+');
-        $body->write($this->templateRenderer->render('app::svg', [
+        $body->write($this->templateRenderer->render('common::svg', [
+            'locale' => $request->getAttribute('locale'),
             'groups' => $this->getAllGroup->getAll(),
         ]));
         $body->rewind();
