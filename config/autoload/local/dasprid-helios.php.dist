@@ -1,0 +1,20 @@
+<?php
+return [
+    'helios' => [
+        'cookie' => [
+            'name' => 'helios',
+            'secure' => false,
+            'lifetime' => 2592000,
+        ],
+
+        'token' => [
+            'signer_class' => Lcobucci\JWT\Signer\Hmac\Sha256::class,
+            'signature_key' => 'key',
+            'verification_key' => 'key',
+        ],
+
+        'middleware' => [
+            'refresh_time' => 60,
+        ],
+    ],
+];

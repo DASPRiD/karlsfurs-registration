@@ -1,0 +1,16 @@
+<?php
+/* @var $translator Suitwalk\Infrastructure\I18n\Translator */
+$translator = $this->getTranslator($locale);
+
+$this->layout('layout::default', [
+    'emailAddress' => $emailAddress,
+    'translator' => $translator,
+]);
+?>
+
+<?php
+if (isset($error)) {
+    echo $translator->translate($error);
+} else {
+    echo $translator->translate($success);
+}

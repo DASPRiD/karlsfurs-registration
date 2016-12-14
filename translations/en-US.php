@@ -43,6 +43,7 @@ return [
     'no' => 'No',
     'maybe' => 'Maybe',
     'change-registration' => 'Change entry',
+    'add-attendee' => 'Add another attendee',
     'walk-attendees' => 'Walk attendees',
     'suiters' => 'Suiters',
     'spotters' => 'Spotters',

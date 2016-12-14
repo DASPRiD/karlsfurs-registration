@@ -1,0 +1,10 @@
+<?php
+/* @var $translator Suitwalk\Infrastructure\I18n\Translator */
+$translator = $this->getTranslator($locale);
+
+echo json_encode([
+    'subject' => $translator->translate('login-email-subject'),
+    'body' => trim($translator->translate('login-email-body', [
+        'loginUrl' => $this->serverurl($this->url('login', ['token' => $token]))
+    ]))
+]);

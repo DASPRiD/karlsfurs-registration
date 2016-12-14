@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping
+    xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+    http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Suitwalk\Domain\Attendee\Attendee" table="attendee">
+        <id name="sequenceNumber" type="integer"/>
+        <id name="emailAddress" type="string"/>
+
+        <field name="name" type="string"/>
+        <field name="walkStatus" type="string"/>
+        <field name="dinnerStatus" type="string"/>
+        <field name="lastUpdateDateTime" type="datetime"/>
+
+        <many-to-one field="group" target-entity="Suitwalk\Domain\Group\Group" inversed-by="attendees">
+            <join-column name="groupId" referenced-column-name="id" nullable="false"/>
+        </many-to-one>
+    </entity>
+</doctrine-mapping>
