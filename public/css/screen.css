@@ -105,6 +105,12 @@ body > .container {
     background-color: #f7fafb;
 }
 
+#attendee-form fieldset {
+    border: 1px solid #ddd;
+    padding: 5px;
+    margin-bottom: 15px;
+}
+
 .status-yes,
 .legend > dt.certain {
     color: #4e8749;

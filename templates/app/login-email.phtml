@@ -1,9 +1,0 @@
-<?php echo json_encode([
-    'subject' => $this->translate('login-email-subject'),
-    'body' => trim($this->messageFormat(
-        $this->translate('login-email-body'),
-        [
-            'loginUrl' => $this->serverUrl($this->url('login-confirm', ['token' => $this->token]))
-        ]
-    ))
-]); ?>

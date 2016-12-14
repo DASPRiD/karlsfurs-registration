@@ -1,22 +1,21 @@
 <?php
-$this->headLink()
-    ->prependStylesheet('/css/screen.css')
-    ->prependStylesheet('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css')
-    ->prependStylesheet('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css');
+/* @var $emailAddress string */
+/* @var $translator Suitwalk\Infrastructure\I18n\Translator */
 
-$this->inlineScript()
-    ->prependFile('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js')
-    ->prependFile('https://code.jquery.com/jquery-2.2.3.min.js');
+/* @var $suitwalkOptions Suitwalk\Infrastructure\Options\SuitwalkOptions */
+$suitwalkOptions = $this->getSuitwalkOptions();
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo $this->translate('language-code'); ?>">
+<html lang="<?php echo $translator->translate('language-code'); ?>">
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <?php echo $this->headTitle('Karlsfurs Suitwalk')->setSeparator(' - ')->setAutoEscape(false) ?>
+    <title>Karlsfurs Suitwalk</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <?php echo $this->headMeta(); ?>
-    <?php echo $this->headLink(); ?>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/screen.css">
 
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
@@ -52,27 +51,26 @@ $this->inlineScript()
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="<?php echo $this->suitwalkOptions()->getFurbaseThreadUrl(); ?>"><?php echo $this->translate('furbase-thread'); ?></a></li>
-                    <li><a href="<?php echo $this->suitwalkOptions()->getTelegramGroupUrl(); ?>"><?php echo $this->translate('telegram-group'); ?></a></li>
+                    <li><a href="<?php echo $suitwalkOptions->getFurbaseThreadUrl(); ?>"><?php echo $translator->translate('furbase-thread'); ?></a></li>
+                    <li><a href="<?php echo $suitwalkOptions->getTelegramGroupUrl(); ?>"><?php echo $translator->translate('telegram-group'); ?></a></li>
                 </ul>
 
-                <?php $emailAddress = $this->login(); ?>
                 <?php if (null === $emailAddress): ?>
                     <form class="navbar-form navbar-right" method="POST" action="<?php echo $this->url('login'); ?>">
                         <div class="form-group">
-                            <input type="email" name="emailAddress" placeholder="<?php echo $this->translate('email-address'); ?>" class="form-control">
+                            <input type="email" name="emailAddress" placeholder="<?php echo $translator->translate('email-address'); ?>" class="form-control">
                         </div>
-                        <button type="submit" class="btn btn-success"><?php echo $this->translate('login'); ?></button>
+                        <button type="submit" class="btn btn-success"><?php echo $translator->translate('login'); ?></button>
                     </form>
                 <?php else: ?>
                     <ul class="nav navbar-nav navbar-right">
                         <li>
                             <p class="navbar-text">
-                                <?php echo $this->messageFormat($this->translate('logged-in-as'), ['emailAddress' => $this->escapeHtml($emailAddress)]); ?>
+                                <?php echo MessageFormatter::formatMessage($locale, $translator->translate('logged-in-as'), ['emailAddress' => $this->escape($emailAddress)]); ?>
                             </p>
                         </li>
                         <li>
-                            <a href="<?php echo $this->url('logout'); ?>"><?php echo $this->translate('logout'); ?></a>
+                            <a href="<?php echo $this->url('logout'); ?>"><?php echo $translator->translate('logout'); ?></a>
                         </li>
                     </ul>
                 <?php endif; ?>
@@ -81,13 +79,13 @@ $this->inlineScript()
 
         <header id="header">
             <ul class="language-selection">
-                <li class="german<?php if ('de' === $this->translate('language-code')): ?> active<?php endif; ?>"><a href="<?php echo $this->url('language', ['locale' => 'de-DE']); ?>">Deutsch</a></li>
-                <li class="english<?php if ('en' === $this->translate('language-code')): ?> active<?php endif; ?>"><a href="<?php echo $this->url('language', ['locale' => 'en-US']); ?>">English</a></li>
+                <li class="german<?php if ('de' === $translator->translate('language-code')): ?> active<?php endif; ?>"><a href="<?php echo $this->url('language', ['locale' => 'de-DE']); ?>">Deutsch</a></li>
+                <li class="english<?php if ('en' === $translator->translate('language-code')): ?> active<?php endif; ?>"><a href="<?php echo $this->url('language', ['locale' => 'en-US']); ?>">English</a></li>
             </ul>
         </header>
 
         <div id="content">
-            <?php echo $this->content ?>
+            <?php echo $this->section('content'); ?>
         </div>
 
         <footer id="footer">
@@ -98,6 +96,8 @@ $this->inlineScript()
         </footer>
     </div>
 
-    <?php echo $this->inlineScript(); ?>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/suitwalk.js"></script>
 </body>
 </html>

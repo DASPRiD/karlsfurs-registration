@@ -1,0 +1,12 @@
+<?php
+return [
+    'doctrine' => [
+        'connection' => [
+            'orm_default' => [
+                'params' => [
+                    'url' => 'mysql://username:password@localhost/localhost',
+                ],
+            ],
+        ],
+    ],
+];

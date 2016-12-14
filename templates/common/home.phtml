@@ -1,0 +1,231 @@
+<?php
+/* @var $emailAddress string */
+/* @var $groups Suitwalk\Domain\Group\Group[] */
+
+/* @var $suitwalkOptions Suitwalk\Infrastructure\Options\SuitwalkOptions */
+$suitwalkOptions = $this->getSuitwalkOptions();
+
+/* @var $translator Suitwalk\Infrastructure\I18n\Translator */
+$translator = $this->getTranslator($locale);
+
+$this->layout('layout::default', [
+    'emailAddress' => $emailAddress,
+    'translator' => $translator,
+]);
+?>
+
+<h1 class="page-header"><?php echo $translator->translate('suitwalk-headline', [
+    'nextDate' => $suitwalkOptions->getNextDate(),
+]); ?></h1>
+
+<p>
+    <?php echo $translator->translate('lead-paragraph', [
+        'nextDate' => $suitwalkOptions->getNextDate(),
+        'furbaseThreadUrl' => $suitwalkOptions->getFurbaseThreadUrl(),
+        'telegramGroupUrl' => $suitwalkOptions->getTelegramGroupUrl(),
+    ]); ?>
+</p>
+
+<h2><?php echo $translator->translate('registration'); ?></h2>
+
+<?php if ($registrationClosed): ?>
+    <p>
+        <?php echo $translator->translate('registration-closed-hint'); ?>
+    </p>
+<?php elseif (null !== $form): ?>
+    <div class="panel panel-default">
+        <div class="panel-body">
+        <form class="form-inline" method="post" action="<?php echo $this->url('home'); ?>" id="attendee-form">
+            <?php
+            $inputHelper = new DASPRiD\Formidable\Helper\InputText();
+            $selectHelper = new DASPRiD\Formidable\Helper\Select();
+
+            $groupMap = [];
+
+            foreach ($groups as $group) {
+                $groupMap[$group->getId()] = $translator->translate($group->getName());
+            }
+
+            $statusMap = [
+                Suitwalk\Domain\Attendee\Attendee::STATUS_YES => $translator->translate('yes'),
+                Suitwalk\Domain\Attendee\Attendee::STATUS_MAYBE => $translator->translate('maybe'),
+                Suitwalk\Domain\Attendee\Attendee::STATUS_NO => $translator->translate('no'),
+            ];
+            ?>
+
+            <?php foreach ($form->getField('attendees')->getIndexes() as $index): ?>
+                <fieldset>
+                    <div class="form-group">
+                        <label><?php echo $translator->translate('name'); ?></label>
+                        <?php echo $inputHelper($form->getField(sprintf('attendees[%d][name]', $index)), [
+                            'class' => 'form-control',
+                            'required' => 'required',
+                            'maxlength' => '32',
+                        ]); ?>
+                    </div>
+                    <div class="form-group">
+                        <label><?php echo $translator->translate('group'); ?></label>
+                        <?php echo $selectHelper($form->getField(sprintf('attendees[%d][group]', $index)), $groupMap, [
+                            'class' => 'form-control',
+                            'required' => 'required',
+                        ]); ?>
+                    </div>
+                    <div class="form-group">
+                        <label><?php echo $translator->translate('walk'); ?></label>
+                        <?php echo $selectHelper($form->getField(sprintf('attendees[%d][walkStatus]', $index)), $statusMap, [
+                            'class' => 'form-control',
+                            'required' => 'required',
+                        ]); ?>
+                    </div>
+                    <div class="form-group">
+                        <label><?php echo $translator->translate('dinner'); ?></label>
+                        <?php echo $selectHelper($form->getField(sprintf('attendees[%d][dinnerStatus]', $index)), $statusMap, [
+                            'class' => 'form-control',
+                            'required' => 'required',
+                        ]); ?>
+                    </div>
+
+                    <a href="#" class="btn btn-danger remove-attendee"><span class="glyphicon glyphicon-remove"></span></a>
+                </fieldset>
+            <?php endforeach; ?>
+
+            <button type="submit" class="btn btn-success"><?php echo $translator->translate('change-registration'); ?></button>
+            <a class="btn btn-primary add-attendee" href="#"><?php echo $translator->translate('add-attendee'); ?></a>
+        </form>
+        </div>
+    </div>
+<?php else: ?>
+    <p>
+        <?php echo $translator->translate('registration-hint'); ?>
+    </p>
+<?php endif ?>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2><?php echo $translator->translate('meeting-point'); ?></h2>
+
+        <address>
+            <?php echo nl2br($this->escape($suitwalkOptions->getMeetingPointAddress())); ?>
+        </address>
+
+        <iframe
+            src="<?php echo $suitwalkOptions->getMeetingPointEmbedUrl(); ?>"
+            accesskey=""
+            class="map"
+            allowfullscreen="allowfullscreen"
+        ></iframe>
+    </div>
+    <div class="col-md-4">
+        <h2><?php echo $translator->translate('restaurant'); ?></h2>
+
+        <address>
+            <?php echo nl2br($this->escape($suitwalkOptions->getRestaurantAddress())); ?>
+        </address>
+
+        <iframe
+            src="<?php echo $suitwalkOptions->getRestaurantEmbedUrl(); ?>"
+            accesskey=""
+            class="map"
+            allowfullscreen="allowfullscreen"
+        ></iframe>
+    </div>
+    <div class="col-md-4">
+        <h2><?php echo $translator->translate('schedule'); ?></h2>
+
+        <ul class="list-unstyled">
+            <li><?php echo $translator->translate('schedule:meeting-time', [
+                'meetingTime' => $suitwalkOptions->getMeetingTime()
+            ]); ?>
+            (<?php echo $suitwalkOptions->getMeetingPointAdditionalInformation($translator->translate('language-code')); ?>)</li>
+            <li><?php echo $translator->translate('schedule:departure-time', [
+                'departureTime' => $suitwalkOptions->getDepartureTime()
+            ]); ?></li>
+            <li><?php echo $translator->translate('schedule:return-time', [
+                'returnTime' => $suitwalkOptions->getReturnTime()
+            ]); ?></li>
+            <li><?php echo $translator->translate('schedule:dinner-time', [
+                'dinnerTime' => $suitwalkOptions->getDinnerTime()
+            ]); ?></li>
+        </ul>
+    </div>
+</div>
+
+<h2><?php echo $translator->translate('walk-attendees'); ?></h2>
+<div class="row">
+    <?php
+    $certainDinnerAttendees = [];
+    $uncertainDinnerAttendees = [];
+    ?>
+
+    <?php foreach ($groups as $group): ?>
+        <?php
+        $attendees = new IteratorIterator($group->getAttendees());
+
+        $groupAttendees = iterator_to_array(new CallbackFilterIterator($attendees, function (Suitwalk\Domain\Attendee\Attendee $attendee) {
+            return $attendee->getWalkStatus() !== Suitwalk\Domain\Attendee\Attendee::STATUS_NO;
+        }));
+
+        $certainDinnerAttendees = array_merge(iterator_to_array(new CallbackFilterIterator($attendees, function (Suitwalk\Domain\Attendee\Attendee $attendee) {
+            return $attendee->getDinnerStatus() === Suitwalk\Domain\Attendee\Attendee::STATUS_YES;
+        })), $certainDinnerAttendees);
+
+        $uncertainDinnerAttendees = array_merge(iterator_to_array(new CallbackFilterIterator($attendees, function (Suitwalk\Domain\Attendee\Attendee $attendee) {
+            return $attendee->getDinnerStatus() === Suitwalk\Domain\Attendee\Attendee::STATUS_MAYBE;
+        })), $certainDinnerAttendees);
+        ?>
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <?php echo $translator->translate($group->getName()); ?>
+                    <span class="badge"><?php echo count($groupAttendees); ?></span>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-unstyled">
+                        <?php foreach ($groupAttendees as $attendee): ?>
+                            <li class="status-<?php echo $attendee->getWalkStatus(); ?>">
+                                <?php echo $this->escape($attendee->getName()); ?>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    <?php endforeach; ?>
+</div>
+
+<h2><?php echo $translator->translate('dinner-attendees'); ?></h2>
+<p>
+    <?php
+    echo MessageFormatter::formatMessage(
+        $locale,
+        $translator->translate('dinner-attendee-information'),
+        [
+            'certainDinnerAttendees' => count($certainDinnerAttendees),
+            'uncertainDinnerAttendees' => count($uncertainDinnerAttendees),
+        ]
+    );
+
+    $dinnerAttendees = array_merge($certainDinnerAttendees, $uncertainDinnerAttendees);
+    $collator = new Collator($locale);
+    usort($dinnerAttendees, function (Suitwalk\Domain\Attendee\Attendee $a, Suitwalk\Domain\Attendee\Attendee $b) use ($collator) {
+        return $collator->compare($a->getName(), $b->getName());
+    });
+    ?>
+
+    <ul class="dinner-attendees">
+        <?php foreach ($dinnerAttendees as $attendee): ?>
+            <li class="status-<?php echo $attendee->getDinnerStatus(); ?>">
+                <?php echo $this->escape($attendee->getName()); ?>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</p>
+
+<h2><?php echo $translator->translate('legend'); ?></h2>
+<dl class="legend">
+    <dt class="certain"><?php echo $translator->translate('legend-certain-term'); ?></dt>
+    <dd class="certain"><?php echo $translator->translate('legend-certain-definition'); ?></dd>
+
+    <dt class="uncertain"><?php echo $translator->translate('legend-uncertain-term'); ?></dt>
+    <dd class="uncertain"><?php echo $translator->translate('legend-uncertain-definition'); ?></dd>
+</dl>

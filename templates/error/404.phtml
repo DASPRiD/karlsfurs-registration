@@ -1,4 +1,9 @@
-<?php $this->headTitle('404 Not Found'); ?>
+<?php
+$this->layout('layout::default', [
+    'emailAddress' => $emailAddress,
+    'translator' => $this->getTranslator('en-US'),
+]);
+?>
 
 <h1>Oops!</h1>
 <h2>This is awkward.</h2>

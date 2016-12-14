@@ -8,7 +8,7 @@ $config = [];
 if (is_file($cachedConfigFile)) {
     $config = include $cachedConfigFile;
 } else {
-    foreach (Glob::glob('config/autoload/{{,*.}global,{,*.}local}.php', Glob::GLOB_BRACE) as $file) {
+    foreach (Glob::glob('config/autoload/{global,local}/{.,*}/*.php', Glob::GLOB_BRACE) as $file) {
         $config = ArrayUtils::merge($config, include $file);
     }
 

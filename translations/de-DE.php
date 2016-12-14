@@ -16,7 +16,7 @@ return [
     'registration' => 'Registrierung',
     'registration-hint' => '
         Um dich für den Karlsfurs Suitwalk zu registrieren, melde dich bitte oben mit deiner E-Mail Adresse an. Du
-        erhälst dann einen Link per E-Mail, mit dem du dich in die Liste eintragen kannst.
+        erhältst dann einen Link per E-Mail, mit dem du dich in die Liste eintragen kannst.
     ',
     'registration-closed-hint' => 'Die Registrierung ist geschlossen.',
     'meeting-point' => 'Treffpunkt',
@@ -44,6 +44,7 @@ return [
     'no' => 'Nein',
     'maybe' => 'Vielleicht',
     'change-registration' => 'Eintrag ändern',
+    'add-attendee' => 'Weiteren Teilnehmer hinzufügen',
     'walk-attendees' => 'Walk-Teilnehmer',
     'suiters' => 'Suiter',
     'spotters' => 'Spotter',
