@@ -171,7 +171,7 @@ $this->layout('layout::default', [
 
         $uncertainDinnerAttendees = array_merge(iterator_to_array(new CallbackFilterIterator($attendees, function (Suitwalk\Domain\Attendee\Attendee $attendee) {
             return $attendee->getDinnerStatus() === Suitwalk\Domain\Attendee\Attendee::STATUS_MAYBE;
-        })), $certainDinnerAttendees);
+        })), $uncertainDinnerAttendees);
         ?>
         <div class="col-md-3">
             <div class="panel panel-default">
