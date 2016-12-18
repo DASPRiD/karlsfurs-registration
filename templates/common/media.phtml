@@ -5,7 +5,7 @@
 /* @var $translator Suitwalk\Infrastructure\I18n\Translator */
 $translator = $this->getTranslator($locale);
 
-$dateFormatter = new IntlDateFormatter($locale, IntlDateFormatter::MEDIUM, IntlDateFormatter::NONE);
+$dateFormatter = new IntlDateFormatter($locale, IntlDateFormatter::LONG, IntlDateFormatter::NONE);
 
 $this->layout('layout::default', [
     'emailAddress' => $emailAddress,
