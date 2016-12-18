@@ -10,6 +10,8 @@ return [
                 Suitwalk\Factory\Infrastructure\Middleware\LogoutFactory::class,
             Suitwalk\Infrastructure\Middleware\SetLocale::class =>
                 Suitwalk\Factory\Infrastructure\Middleware\SetLocaleFactory::class,
+            Suitwalk\Infrastructure\Middleware\Media::class =>
+                Suitwalk\Factory\Infrastructure\Middleware\MediaFactory::class,
             Suitwalk\Infrastructure\Middleware\Svg::class =>
                 Suitwalk\Factory\Infrastructure\Middleware\SvgFactory::class,
         ],
@@ -38,6 +40,12 @@ return [
             'name' => 'language',
             'path' => '/language/{locale:[a-z]{2}-[A-Z]{2}}',
             'middleware' => Suitwalk\Infrastructure\Middleware\SetLocale::class,
+            'allowed_methods' => ['GET'],
+        ],
+        [
+            'name' => 'media',
+            'path' => '/media',
+            'middleware' => Suitwalk\Infrastructure\Middleware\Media::class,
             'allowed_methods' => ['GET'],
         ],
         [

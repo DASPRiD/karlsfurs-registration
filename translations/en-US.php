@@ -66,4 +66,8 @@ return [
     'legend-certain-definition' => 'certain attendance',
     'legend-uncertain-term' => 'orange',
     'legend-uncertain-definition' => 'uncertain attendance',
+    'home' => 'Home',
+    'media' => 'Media',
+    'videos' => 'Videos',
+    'galleries' => 'Galleries',
 ];

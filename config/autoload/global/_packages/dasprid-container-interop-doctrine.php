@@ -22,5 +22,11 @@ return [
                 'drivers' => [],
             ],
         ],
+        'types' => [
+            VasekPurchart\Doctrine\Type\DateTimeImmutable\DateImmutableType::NAME =>
+                VasekPurchart\Doctrine\Type\DateTimeImmutable\DateImmutableType::class,
+            VasekPurchart\Doctrine\Type\DateTimeImmutable\DateTimeImmutableType::NAME =>
+                VasekPurchart\Doctrine\Type\DateTimeImmutable\DateTimeImmutableType::class,
+        ],
     ],
 ];

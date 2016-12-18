@@ -67,4 +67,8 @@ return [
     'legend-certain-definition' => 'Sichere Teilnahme',
     'legend-uncertain-term' => 'Orange',
     'legend-uncertain-definition' => 'Unsichere Teilnahme',
+    'home' => 'Startseite',
+    'media' => 'Medien',
+    'videos' => 'Videos',
+    'galleries' => 'Galerien',
 ];

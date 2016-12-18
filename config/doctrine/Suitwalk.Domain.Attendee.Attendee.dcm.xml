@@ -12,7 +12,7 @@
         <field name="name" type="string"/>
         <field name="walkStatus" type="string"/>
         <field name="dinnerStatus" type="string"/>
-        <field name="lastUpdateDateTime" type="datetime"/>
+        <field name="lastUpdateDateTime" type="datetime_immutable"/>
 
         <many-to-one field="group" target-entity="Suitwalk\Domain\Group\Group" inversed-by="attendees">
             <join-column name="groupId" referenced-column-name="id" nullable="false"/>

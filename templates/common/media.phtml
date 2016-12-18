@@ -1,0 +1,67 @@
+<?php
+/* @var $locale string */
+/* @var $media Suitwalk\Domain\Medium\Medium[] */
+
+/* @var $translator Suitwalk\Infrastructure\I18n\Translator */
+$translator = $this->getTranslator($locale);
+
+$dateFormatter = new IntlDateFormatter($locale, IntlDateFormatter::MEDIUM, IntlDateFormatter::NONE);
+
+$this->layout('layout::default', [
+    'emailAddress' => $emailAddress,
+    'translator' => $translator,
+]);
+?>
+
+<h1 class="page-header"><?php echo $translator->translate('media'); ?></h1>
+
+<?php
+$mediaGroups = [];
+
+foreach ($media as $medium) {
+    $dateKey = $medium->getDate()->format('Y-m-d');
+
+    if (!array_key_exists($dateKey, $mediaGroups)) {
+        $mediaGroups[$dateKey] = [
+            'date' => DateTime::createFromFormat('Y-m-d', $medium->getDate()->format('Y-m-d')),
+            'types' => [
+                Suitwalk\Domain\Medium\Medium::TYPE_GALLERY => [],
+                Suitwalk\Domain\Medium\Medium::TYPE_VIDEO => [],
+            ],
+        ];
+    }
+
+    $mediaGroups[$dateKey]['types'][$medium->getType()][] = $medium;
+}
+
+$types = [
+    Suitwalk\Domain\Medium\Medium::TYPE_GALLERY => $translator->translate('galleries'),
+    Suitwalk\Domain\Medium\Medium::TYPE_VIDEO => $translator->translate('videos'),
+];
+?>
+
+<?php foreach ($mediaGroups as $mediaGroup): ?>
+    <h2><?php echo $dateFormatter->format($mediaGroup['date']); ?></h2>
+
+    <?php foreach ($types as $type => $label): ?>
+        <?php
+        if (empty($mediaGroup['types'][$type])) {
+            continue;
+
+        }
+        ?>
+
+        <h3><?php echo $this->escape($label); ?></h3>
+
+        <ul>
+            <?php foreach ($mediaGroup['types'][$type] as $medium): ?>
+                <li>
+                    <a href="<?php echo $this->escape($medium->getUrl()); ?>">
+                        <?php echo $this->escape($medium->getName()); ?>
+                        (<?php echo $this->escape(parse_url($medium->getUrl(), PHP_URL_HOST)); ?>)
+                    </a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endforeach; ?>
+<?php endforeach; ?>

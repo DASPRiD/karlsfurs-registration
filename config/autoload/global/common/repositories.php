@@ -11,6 +11,9 @@ return [
                 Suitwalk\Factory\Infrastructure\Repository\Group\GetAllGroupsFactory::class,
             Suitwalk\Domain\Group\GetGroupByIdInterface::class =>
                 Suitwalk\Factory\Infrastructure\Repository\Group\GetGroupByIdFactory::class,
+
+            Suitwalk\Domain\Medium\GetAllMediaInterface::class =>
+                Suitwalk\Factory\Infrastructure\Repository\Medium\GetAllMediaFactory::class,
         ],
     ],
 ];
