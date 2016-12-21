@@ -41,27 +41,32 @@ $types = [
 ?>
 
 <?php foreach ($mediaGroups as $mediaGroup): ?>
-    <h2><?php echo $dateFormatter->format($mediaGroup['date']); ?></h2>
+    <div class="panel panel-default media">
+        <div class="panel-heading"><?php echo $dateFormatter->format($mediaGroup['date']); ?></div>
+        <div class="panel-body">
+            <ul>
+                <?php foreach ($types as $type => $label): ?>
+                    <?php
+                    if (empty($mediaGroup['types'][$type])) {
+                        continue;
+                    }
+                    ?>
 
-    <?php foreach ($types as $type => $label): ?>
-        <?php
-        if (empty($mediaGroup['types'][$type])) {
-            continue;
-
-        }
-        ?>
-
-        <h3><?php echo $this->escape($label); ?></h3>
-
-        <ul>
-            <?php foreach ($mediaGroup['types'][$type] as $medium): ?>
-                <li>
-                    <a href="<?php echo $this->escape($medium->getUrl()); ?>">
-                        <?php echo $this->escape($medium->getName()); ?>
-                        (<?php echo $this->escape(parse_url($medium->getUrl(), PHP_URL_HOST)); ?>)
-                    </a>
-                </li>
-            <?php endforeach; ?>
-        </ul>
-    <?php endforeach; ?>
+                    <li>
+                        <strong><?php echo $this->escape($label); ?></strong>
+                        <ul>
+                            <?php foreach ($mediaGroup['types'][$type] as $medium): ?>
+                                <li>
+                                    <a href="<?php echo $this->escape($medium->getUrl()); ?>">
+                                        <?php echo $this->escape($medium->getName()); ?>
+                                        (<?php echo $this->escape(parse_url($medium->getUrl(), PHP_URL_HOST)); ?>)
+                                    </a>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    </div>
 <?php endforeach; ?>

@@ -10,6 +10,10 @@ final class StringLookup implements IdentityLookupInterface
 {
     public function lookup($subject) : LookupResult
     {
-        return LookupResult::fromIdentity((string) $subject);
+        if (!is_string($subject) || false === filter_var($subject, FILTER_VALIDATE_EMAIL)) {
+            return LookupResult::invalid();
+        }
+
+        return LookupResult::fromIdentity($subject);
     }
 }
