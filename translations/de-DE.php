@@ -28,10 +28,10 @@ return [
     'schedule:dinner-time' => '<strong>{dinnerTime, time, short}</strong>: Essen',
     'login-email-subject' => 'Karlsfurs Suitwalk Anmeldung',
     'login-email-body' => '
-        Hallo!
+Hallo!
 
-        Um dich beim Karlsfurs Suitwalk anzumelden, folge bitte diesem Link:
-        {loginUrl}
+Um dich beim Karlsfurs Suitwalk anzumelden, folge bitte diesem Link:
+{loginUrl}
     ',
     'invalid-email-address' => 'Du hast eine ungültige E-Mail Adresse angegeben.',
     'invalid-token' => 'Dieser Link ist nicht mehr gültig, bitte fordere einen neuen an.',

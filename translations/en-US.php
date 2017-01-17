@@ -27,10 +27,10 @@ return [
     'schedule:dinner-time' => '<strong>{dinnerTime, time, short}</strong>: Dinner',
     'login-email-subject' => 'Karlsfurs Suitwalk login',
     'login-email-body' => '
-        Hello!
+Hello!
 
-        To register for the Karlsfurs Suitwalk, please folow this link:
-        {loginUrl}
+To register for the Karlsfurs Suitwalk, please folow this link:
+{loginUrl}
     ',
     'invalid-email-address' => 'You have entered an invalid email address.',
     'invalid-token' => 'This link is not valid anymore, please request a new one.',
