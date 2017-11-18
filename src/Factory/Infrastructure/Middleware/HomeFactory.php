@@ -4,6 +4,7 @@ namespace Suitwalk\Factory\Infrastructure\Middleware;
 use Interop\Container\ContainerInterface;
 use Suitwalk\Domain\Attendee\ReplaceAttendeesInterface;
 use Suitwalk\Domain\Attendee\SearchAttendeesByEmailAddressInterface;
+use Suitwalk\Domain\Event\GetLatestEventInterface;
 use Suitwalk\Domain\Group\GetAllGroupsInterface;
 use Suitwalk\Infrastructure\Form\AttendeeFormBuilder;
 use Suitwalk\Infrastructure\Middleware\Home;
@@ -16,6 +17,7 @@ final class HomeFactory
     {
         return new Home(
             $container->get(SuitwalkOptions::class),
+            $container->get(GetLatestEventInterface::class),
             $container->get(GetAllGroupsInterface::class),
             $container->get(SearchAttendeesByEmailAddressInterface::class),
             $container->get(ReplaceAttendeesInterface::class),

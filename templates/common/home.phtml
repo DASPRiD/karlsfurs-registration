@@ -1,4 +1,5 @@
 <?php
+/* @var $event Suitwalk\Domain\Event\Event */
 /* @var $groups Suitwalk\Domain\Group\Group[] */
 
 /* @var $suitwalkOptions Suitwalk\Infrastructure\Options\SuitwalkOptions */
@@ -14,12 +15,12 @@ $this->layout('layout::default', [
 ?>
 
 <h1 class="page-header"><?php echo $translator->translate('suitwalk-headline', [
-    'nextDate' => $suitwalkOptions->getNextDate(),
+    'nextDate' => $event->getDate(),
 ]); ?></h1>
 
 <p>
     <?php echo $translator->translate('lead-paragraph', [
-        'nextDate' => $suitwalkOptions->getNextDate(),
+        'nextDate' => $event->getDate(),
         'furbaseThreadUrl' => $suitwalkOptions->getFurbaseThreadUrl(),
         'telegramGroupUrl' => $suitwalkOptions->getTelegramGroupUrl(),
     ]); ?>
@@ -42,7 +43,7 @@ $this->layout('layout::default', [
             $groupMap = [];
 
             foreach ($groups as $group) {
-                $groupMap[$group->getId()] = $translator->translate($group->getName());
+                $groupMap[$group->getId()] = $group->getName($translator->translate('language-code'));
             }
 
             $statusMap = [
@@ -104,11 +105,11 @@ $this->layout('layout::default', [
         <h2><?php echo $translator->translate('meeting-point'); ?></h2>
 
         <address>
-            <?php echo nl2br($this->escape($suitwalkOptions->getMeetingPointAddress())); ?>
+            <?php echo nl2br($this->escape($event->getMeetingPointAddress())); ?>
         </address>
 
         <iframe
-            src="<?php echo $suitwalkOptions->getMeetingPointEmbedUrl(); ?>"
+            src="https://www.google.com/maps/embed/v1/place?key=<?php echo $suitwalkOptions->getMapsApiKey(); ?>&amp;q=<?php echo urlencode(str_replace("\n", ',', $event->getMeetingPointAddress())); ?>"
             accesskey=""
             class="map"
             allowfullscreen="allowfullscreen"
@@ -118,11 +119,11 @@ $this->layout('layout::default', [
         <h2><?php echo $translator->translate('restaurant'); ?></h2>
 
         <address>
-            <?php echo nl2br($this->escape($suitwalkOptions->getRestaurantAddress())); ?>
+            <?php echo nl2br($this->escape($event->getRestaurantAddress())); ?>
         </address>
 
         <iframe
-            src="<?php echo $suitwalkOptions->getRestaurantEmbedUrl(); ?>"
+            src="https://www.google.com/maps/embed/v1/place?key=<?php echo $suitwalkOptions->getMapsApiKey(); ?>&amp;q=<?php echo urlencode(str_replace("\n", ',', $event->getRestaurantAddress())); ?>"
             accesskey=""
             class="map"
             allowfullscreen="allowfullscreen"
@@ -133,17 +134,17 @@ $this->layout('layout::default', [
 
         <ul class="list-unstyled">
             <li><?php echo $translator->translate('schedule:meeting-time', [
-                'meetingTime' => $suitwalkOptions->getMeetingTime()
+                'meetingTime' => $event->getMeetingTime()
             ]); ?>
-            (<?php echo $suitwalkOptions->getMeetingPointAdditionalInformation($translator->translate('language-code')); ?>)</li>
+            (<?php echo $event->getMeetingPointExtra($translator->translate('language-code')); ?>)</li>
             <li><?php echo $translator->translate('schedule:departure-time', [
-                'departureTime' => $suitwalkOptions->getDepartureTime()
+                'departureTime' => $event->getDepartureTime()
             ]); ?></li>
             <li><?php echo $translator->translate('schedule:return-time', [
-                'returnTime' => $suitwalkOptions->getReturnTime()
+                'returnTime' => $event->getReturnTime()
             ]); ?></li>
             <li><?php echo $translator->translate('schedule:dinner-time', [
-                'dinnerTime' => $suitwalkOptions->getDinnerTime()
+                'dinnerTime' => $event->getDinnerTime()
             ]); ?></li>
         </ul>
     </div>
@@ -154,28 +155,31 @@ $this->layout('layout::default', [
     <?php
     $certainDinnerAttendees = [];
     $uncertainDinnerAttendees = [];
+    $attendees = $event->getAttendees();
+
+    $certainDinnerAttendees = array_filter($attendees, function (Suitwalk\Domain\Attendee\Attendee $attendee) {
+        return $attendee->getDinnerStatus() === Suitwalk\Domain\Attendee\Attendee::STATUS_YES;
+    });
+
+    $uncertainDinnerAttendees = array_filter($attendees, function (Suitwalk\Domain\Attendee\Attendee $attendee) {
+        return $attendee->getDinnerStatus() === Suitwalk\Domain\Attendee\Attendee::STATUS_MAYBE;
+    });
     ?>
 
     <?php foreach ($groups as $group): ?>
         <?php
-        $attendees = new IteratorIterator($group->getAttendees());
+        $groupAttendees = array_filter($attendees, function (Suitwalk\Domain\Attendee\Attendee $attendee)  use ($group) {
+            if ($attendee->getGroup() !== $group) {
+                return false;
+            }
 
-        $groupAttendees = iterator_to_array(new CallbackFilterIterator($attendees, function (Suitwalk\Domain\Attendee\Attendee $attendee) {
             return $attendee->getWalkStatus() !== Suitwalk\Domain\Attendee\Attendee::STATUS_NO;
-        }));
-
-        $certainDinnerAttendees = array_merge(iterator_to_array(new CallbackFilterIterator($attendees, function (Suitwalk\Domain\Attendee\Attendee $attendee) {
-            return $attendee->getDinnerStatus() === Suitwalk\Domain\Attendee\Attendee::STATUS_YES;
-        })), $certainDinnerAttendees);
-
-        $uncertainDinnerAttendees = array_merge(iterator_to_array(new CallbackFilterIterator($attendees, function (Suitwalk\Domain\Attendee\Attendee $attendee) {
-            return $attendee->getDinnerStatus() === Suitwalk\Domain\Attendee\Attendee::STATUS_MAYBE;
-        })), $uncertainDinnerAttendees);
+        });
         ?>
         <div class="col-md-3">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <?php echo $translator->translate($group->getName()); ?>
+                    <?php echo $group->getName($translator->translate('language-code')); ?>
                     <span class="badge"><?php echo count($groupAttendees); ?></span>
                 </div>
                 <div class="panel-body">

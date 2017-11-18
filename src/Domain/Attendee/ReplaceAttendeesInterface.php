@@ -6,8 +6,8 @@ namespace Suitwalk\Domain\Attendee;
 interface ReplaceAttendeesInterface
 {
     /**
-     * @param Attendees[] $existingAttendees
-     * @param Attendees[] $newAttendees
+     * @param Attendee[] $existingAttendees
+     * @param Attendee[] $newAttendees
      */
-    public function replaceAttendees(array $existingAttendees, array $newAttendees);
+    public function __invoke(array $existingAttendees, array $newAttendees);
 }

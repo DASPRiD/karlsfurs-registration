@@ -12,6 +12,8 @@ return [
                 Suitwalk\Factory\Infrastructure\Middleware\SetLocaleFactory::class,
             Suitwalk\Infrastructure\Middleware\Media::class =>
                 Suitwalk\Factory\Infrastructure\Middleware\MediaFactory::class,
+            Suitwalk\Infrastructure\Middleware\History::class =>
+                Suitwalk\Factory\Infrastructure\Middleware\HistoryFactory::class,
             Suitwalk\Infrastructure\Middleware\Svg::class =>
                 Suitwalk\Factory\Infrastructure\Middleware\SvgFactory::class,
         ],
@@ -46,6 +48,12 @@ return [
             'name' => 'media',
             'path' => '/media',
             'middleware' => Suitwalk\Infrastructure\Middleware\Media::class,
+            'allowed_methods' => ['GET'],
+        ],
+        [
+            'name' => 'history',
+            'path' => '/history',
+            'middleware' => Suitwalk\Infrastructure\Middleware\History::class,
             'allowed_methods' => ['GET'],
         ],
         [

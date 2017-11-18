@@ -18,7 +18,7 @@ final class GetAllGroups implements GetAllGroupsInterface
         $this->repository = $repository;
     }
 
-    public function getAll() : array
+    public function __invoke() : array
     {
         return $this->repository->findBy([], ['priority' => 'asc']);
     }

@@ -14,6 +14,12 @@ return [
 
             Suitwalk\Domain\Medium\GetAllMediaInterface::class =>
                 Suitwalk\Factory\Infrastructure\Repository\Medium\GetAllMediaFactory::class,
+
+            Suitwalk\Domain\Event\GetLatestEventInterface::class =>
+                Suitwalk\Factory\Infrastructure\Repository\Event\GetLatestEventFactory::class,
+
+            Suitwalk\Domain\History\GetHistoryInterface::class =>
+                Suitwalk\Factory\Infrastructure\Repository\History\GetHistoryFactory::class,
         ],
     ],
 ];

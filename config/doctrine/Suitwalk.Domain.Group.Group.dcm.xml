@@ -11,12 +11,7 @@
         </id>
 
         <field name="priority" type="integer"/>
-        <field name="name" type="string"/>
-
-        <one-to-many field="attendees" target-entity="Suitwalk\Domain\Attendee\Attendee" mapped-by="group">
-            <order-by>
-                <order-by-field name="name" direction="asc"/>
-            </order-by>
-        </one-to-many>
+        <field name="nameEn" type="string"/>
+        <field name="nameDe" type="string"/>
     </entity>
 </doctrine-mapping>

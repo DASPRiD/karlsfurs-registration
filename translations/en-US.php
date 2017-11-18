@@ -45,10 +45,6 @@ To register for the Karlsfurs Suitwalk, please folow this link:
     'change-registration' => 'Change entry',
     'add-attendee' => 'Add another attendee',
     'walk-attendees' => 'Walk attendees',
-    'suiters' => 'Suiters',
-    'spotters' => 'Spotters',
-    'photographers' => 'Photographers',
-    'guests' => 'Guests',
     'dinner-attendees' => 'Dinner attendees',
     'dinner-attendee-information' => '
         {certainDinnerAttendees, plural,
@@ -70,4 +66,6 @@ To register for the Karlsfurs Suitwalk, please folow this link:
     'media' => 'Media',
     'videos' => 'Videos',
     'galleries' => 'Galleries',
+    'history' => 'History',
+    'total' => 'Total',
 ];

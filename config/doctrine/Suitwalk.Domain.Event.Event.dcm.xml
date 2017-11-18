@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping
+    xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+    http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Suitwalk\Domain\Event\Event" table="event">
+        <id name="id" type="integer">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <field name="date" type="date_immutable"/>
+        <field name="meetingTime" type="time_immutable"/>
+        <field name="departureTime" type="time_immutable"/>
+        <field name="returnTime" type="time_immutable"/>
+        <field name="dinnerTime" type="time_immutable"/>
+        <field name="meetingPointAddress" type="text"/>
+        <field name="meetingPointExtraEn" type="string"/>
+        <field name="meetingPointExtraDe" type="string"/>
+        <field name="restaurantAddress" type="text"/>
+
+        <one-to-many field="attendees" target-entity="Suitwalk\Domain\Attendee\Attendee" mapped-by="event"/>
+        <one-to-many field="media" target-entity="Suitwalk\Domain\Medium\Medium" mapped-by="event"/>
+    </entity>
+</doctrine-mapping>

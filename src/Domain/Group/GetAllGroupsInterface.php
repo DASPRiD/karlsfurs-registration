@@ -8,5 +8,5 @@ interface GetAllGroupsInterface
     /**
      * @return Group[]
      */
-    public function getAll() : array;
+    public function __invoke() : array;
 }

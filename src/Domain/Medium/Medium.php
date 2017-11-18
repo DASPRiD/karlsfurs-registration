@@ -3,7 +3,7 @@ declare(strict_types = 1);
 
 namespace Suitwalk\Domain\Medium;
 
-use DateTimeImmutable;
+use Suitwalk\Domain\Event\Event;
 
 final class Medium
 {
@@ -16,9 +16,9 @@ final class Medium
     private $id;
 
     /**
-     * @var DateTimeImmutable
+     * @var Event
      */
-    private $date;
+    private $event;
 
     /**
      * @var string
@@ -39,9 +39,9 @@ final class Medium
     {
     }
 
-    public function getDate() : DateTimeImmutable
+    public function getEvent() : Event
     {
-        return $this->date;
+        return $this->event;
     }
 
     public function getType() : string

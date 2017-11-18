@@ -18,8 +18,8 @@ final class GetAllMedia implements GetAllMediaInterface
         $this->repository = $repository;
     }
 
-    public function getAll() : array
+    public function __invoke() : array
     {
-        return $this->repository->findBy([], ['date' => 'desc', 'type' => 'asc', 'name' => 'asc']);
+        return $this->repository->findBy([], ['type' => 'asc', 'name' => 'asc']);
     }
 }

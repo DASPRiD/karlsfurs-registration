@@ -20,12 +20,11 @@
         "zendframework/zend-expressive-fastroute": "^1.2",
         "zendframework/zend-expressive-platesrenderer": "^1.1",
         "zendframework/zend-i18n": "^2.7",
-        "dasprid/container-interop-doctrine": "^0.2.2",
+        "dasprid/container-interop-doctrine": "^1.0.0",
         "zendframework/zend-mail": "^2.7",
         "zendframework/zend-session": "^2.7",
         "dasprid/helios": "^0.1.1",
-        "dflydev/fig-cookies": "^1.0",
-        "vasek-purchart/doctrine-date-time-immutable-types": "^0.3.0"
+        "dflydev/fig-cookies": "^1.0"
     },
     "require-dev": {
         "filp/whoops": "^2.1"

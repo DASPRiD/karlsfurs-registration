@@ -8,12 +8,16 @@
     <entity name="Suitwalk\Domain\Attendee\Attendee" table="attendee">
         <id name="sequenceNumber" type="integer"/>
         <id name="emailAddress" type="string"/>
+        <id name="event" association-key="true"/>
 
         <field name="name" type="string"/>
         <field name="walkStatus" type="string"/>
         <field name="dinnerStatus" type="string"/>
         <field name="lastUpdateDateTime" type="datetime_immutable"/>
 
+        <many-to-one field="event" target-entity="Suitwalk\Domain\Event\Event" inversed-by="attendees">
+            <join-column name="eventId" referenced-column-name="id" nullable="false"/>
+        </many-to-one>
         <many-to-one field="group" target-entity="Suitwalk\Domain\Group\Group" inversed-by="attendees">
             <join-column name="groupId" referenced-column-name="id" nullable="false"/>
         </many-to-one>

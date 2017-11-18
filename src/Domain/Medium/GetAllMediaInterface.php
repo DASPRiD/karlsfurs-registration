@@ -8,5 +8,5 @@ interface GetAllMediaInterface
     /**
      * @return Medium[]
      */
-    public function getAll() : array;
+    public function __invoke() : array;
 }

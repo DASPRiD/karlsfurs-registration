@@ -46,10 +46,6 @@ Um dich beim Karlsfurs Suitwalk anzumelden, folge bitte diesem Link:
     'change-registration' => 'Eintrag ändern',
     'add-attendee' => 'Weiteren Teilnehmer hinzufügen',
     'walk-attendees' => 'Walk-Teilnehmer',
-    'suiters' => 'Suiter',
-    'spotters' => 'Spotter',
-    'photographers' => 'Fotografen',
-    'guests' => 'Gäste',
     'dinner-attendees' => 'Essen-Teilnehmer',
     'dinner-attendee-information' => '
         Es {certainDinnerAttendees, plural,
@@ -71,4 +67,6 @@ Um dich beim Karlsfurs Suitwalk anzumelden, folge bitte diesem Link:
     'media' => 'Medien',
     'videos' => 'Videos',
     'galleries' => 'Galerien',
+    'history' => 'Historie',
+    'total' => 'Gesamt',
 ];

@@ -5,6 +5,7 @@ namespace Suitwalk\Infrastructure\Repository\Attendee;
 
 use Doctrine\Common\Persistence\ObjectRepository;
 use Suitwalk\Domain\Attendee\SearchAttendeesByEmailAddressInterface;
+use Suitwalk\Domain\Event\Event;
 
 final class SearchAttendeesByEmailAddress implements SearchAttendeesByEmailAddressInterface
 {
@@ -18,8 +19,11 @@ final class SearchAttendeesByEmailAddress implements SearchAttendeesByEmailAddre
         $this->repository = $repository;
     }
 
-    public function searchByEmailAddress(string $emailAddress) : array
+    public function __invoke(Event $event, string $emailAddress) : array
     {
-        return $this->repository->findBy(['emailAddress' => $emailAddress], ['sequenceNumber' => 'asc']);
+        return $this->repository->findBy([
+            'event' => $event,
+            'emailAddress' => $emailAddress
+        ], ['sequenceNumber' => 'asc']);
     }
 }

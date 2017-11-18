@@ -4,6 +4,7 @@ declare(strict_types = 1);
 namespace Suitwalk\Domain\Attendee;
 
 use DateTimeImmutable;
+use Suitwalk\Domain\Event\Event;
 use Suitwalk\Domain\Group\Group;
 
 final class Attendee
@@ -21,6 +22,11 @@ final class Attendee
      * @var string
      */
     private $emailAddress;
+
+    /**
+     * @var Event
+     */
+    private $event;
 
     /**
      * @var Group
@@ -49,12 +55,14 @@ final class Attendee
 
     public function __construct(
         string $emailAddress,
+        Event $event,
         Group $group,
         string $name,
         string $walkStatus,
         string $dinnerStatus
     ) {
         $this->emailAddress = $emailAddress;
+        $this->event = $event;
         $this->group = $group;
         $this->name = $name;
         $this->walkStatus = $walkStatus;

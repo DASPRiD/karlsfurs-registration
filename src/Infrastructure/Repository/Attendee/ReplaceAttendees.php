@@ -18,7 +18,7 @@ final class ReplaceAttendees implements ReplaceAttendeesInterface
         $this->entityManager = $entityManager;
     }
 
-    public function replaceAttendees(array $existingAttendees, array $newAttendees)
+    public function __invoke(array $existingAttendees, array $newAttendees)
     {
         $this->entityManager->transactional(function (EntityManagerInterface $entityManager) use (
             $existingAttendees,

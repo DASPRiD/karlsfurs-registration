@@ -33,7 +33,7 @@ final class Svg
         $body = new Stream('php://temp', 'wb+');
         $body->write($this->templateRenderer->render('common::svg', [
             'locale' => $request->getAttribute('locale'),
-            'groups' => $this->getAllGroup->getAll(),
+            'groups' => $this->getAllGroup->__invoke(),
         ]));
         $body->rewind();
 

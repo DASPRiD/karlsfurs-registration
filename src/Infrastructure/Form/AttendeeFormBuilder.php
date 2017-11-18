@@ -10,6 +10,7 @@ use DASPRiD\Formidable\Mapping\FieldMappingFactory;
 use DASPRiD\Formidable\Mapping\ObjectMapping;
 use DASPRiD\Formidable\Mapping\RepeatedMapping;
 use Suitwalk\Domain\Attendee\Attendee;
+use Suitwalk\Domain\Event\Event;
 use Suitwalk\Infrastructure\Form\Mapping\Constraint\HaystackConstraint;
 use Suitwalk\Infrastructure\Form\Mapping\Formatter\GroupFormatter;
 
@@ -25,7 +26,7 @@ final class AttendeeFormBuilder
         $this->groupFormatter = $groupFormatter;
     }
 
-    public function buildForm(string $emailAddress, array $groups) : FormInterface
+    public function buildForm(string $emailAddress, Event $event, array $groups) : FormInterface
     {
         $groupIds = [];
 
@@ -42,6 +43,7 @@ final class AttendeeFormBuilder
         return new Form(new ObjectMapping([
             'attendees' => new RepeatedMapping(new ObjectMapping([
                 'emailAddress' => FieldMappingFactory::ignored($emailAddress),
+                'event'  => FieldMappingFactory::ignored($event),
                 'group' => new FieldMapping($this->groupFormatter),
                 'name' => FieldMappingFactory::nonEmptyText(0, 32),
                 'walkStatus' => FieldMappingFactory::text()->verifying($statusConstraint),

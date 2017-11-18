@@ -3,8 +3,6 @@ declare(strict_types = 1);
 
 namespace Suitwalk\Domain\Group;
 
-use Traversable;
-
 final class Group
 {
     /**
@@ -20,12 +18,12 @@ final class Group
     /**
      * @var string
      */
-    private $name;
+    private $nameEn;
 
     /**
-     * @var Attendee[]
+     * @var string
      */
-    private $attendees;
+    private $nameDe;
 
     private function __construct()
     {
@@ -36,16 +34,8 @@ final class Group
         return $this->id;
     }
 
-    public function getName() : string
+    public function getName(string $languageCode) : string
     {
-        return $this->name;
-    }
-
-    /**
-     * @return Attendee[]
-     */
-    public function getAttendees() : Traversable
-    {
-        return $this->attendees;
+        return 'de' === $languageCode ? $this->nameDe : $this->nameEn;
     }
 }

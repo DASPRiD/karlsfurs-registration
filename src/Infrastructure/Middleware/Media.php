@@ -29,7 +29,7 @@ final class Media
     public function __invoke(ServerRequestInterface $request) : ResponseInterface
     {
         return $this->responseRenderer->render('common::media', $request, [
-            'media' => $this->getAllMedia->getAll(),
+            'media' => $this->getAllMedia->__invoke(),
         ]);
     }
 }

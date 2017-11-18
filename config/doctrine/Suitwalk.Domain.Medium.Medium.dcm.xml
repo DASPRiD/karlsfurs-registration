@@ -6,17 +6,20 @@
     http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
     <entity name="Suitwalk\Domain\Medium\Medium" table="medium">
+        <unique-constraints>
+            <unique-constraint columns="eventId,type,name"/>
+        </unique-constraints>
+
         <id name="id" type="integer">
             <generator strategy="AUTO"/>
         </id>
 
-        <field name="date" type="date_immutable"/>
         <field name="type" type="string"/>
         <field name="name" type="string"/>
         <field name="url" type="string"/>
 
-        <unique-constraints>
-            <unique-constraint columns="date,type,name"/>
-        </unique-constraints>
+        <many-to-one field="event" target-entity="Suitwalk\Domain\Event\Event" inversed-by="media" fetch="EAGER">
+            <join-column name="eventId" referenced-column-name="id" nullable="false"/>
+        </many-to-one>
     </entity>
 </doctrine-mapping>

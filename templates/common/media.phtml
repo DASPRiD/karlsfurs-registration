@@ -19,11 +19,11 @@ $this->layout('layout::default', [
 $mediaGroups = [];
 
 foreach ($media as $medium) {
-    $dateKey = $medium->getDate()->format('Y-m-d');
+    $dateKey = $medium->getEvent()->getDate()->format('Y-m-d');
 
     if (!array_key_exists($dateKey, $mediaGroups)) {
         $mediaGroups[$dateKey] = [
-            'date' => DateTime::createFromFormat('Y-m-d', $medium->getDate()->format('Y-m-d')),
+            'date' => DateTime::createFromFormat('Y-m-d', $medium->getEvent()->getDate()->format('Y-m-d')),
             'types' => [
                 Suitwalk\Domain\Medium\Medium::TYPE_GALLERY => [],
                 Suitwalk\Domain\Medium\Medium::TYPE_VIDEO => [],
@@ -38,6 +38,8 @@ $types = [
     Suitwalk\Domain\Medium\Medium::TYPE_GALLERY => $translator->translate('galleries'),
     Suitwalk\Domain\Medium\Medium::TYPE_VIDEO => $translator->translate('videos'),
 ];
+
+krsort($mediaGroups);
 ?>
 
 <?php foreach ($mediaGroups as $mediaGroup): ?>

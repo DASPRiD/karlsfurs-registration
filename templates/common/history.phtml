@@ -1,0 +1,57 @@
+<?php
+/* @var $locale string */
+/* @var $history Suitwalk\Domain\History\HistoryEvent[] */
+
+/* @var $translator Suitwalk\Infrastructure\I18n\Translator */
+$translator = $this->getTranslator($locale);
+
+$dateFormatter = new IntlDateFormatter($locale, IntlDateFormatter::LONG, IntlDateFormatter::NONE);
+
+$this->layout('layout::default', [
+    'emailAddress' => $emailAddress,
+    'translator' => $translator,
+]);
+?>
+
+<h1 class="page-header"><?php echo $translator->translate('history'); ?></h1>
+
+<div id="plot"></div>
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script type="text/javascript">
+    <?php
+    $data = [
+        ['x' => [], 'y' => [], 'type' => 'scatter', 'name' => $translator->translate('total')],
+    ];
+
+    foreach ($history[0]->getCounts() as $i => $count) {
+        $data[$i + 1] = ['x' => [], 'y' => [], 'type' => 'scatter', 'name' => $count->getGroup()->getName($translator->translate('language-code'))];
+    }
+
+    foreach ($history as $event) {
+        $total = 0;
+        $date = $event->getDate()->format('Y-m-d');
+
+        foreach ($event->getCounts() as $i => $count) {
+            $data[$i + 1]['x'][] = $date;
+            $data[$i + 1]['y'][] = $count->getCount();
+            $total += $count->getCount();
+        }
+
+        $data[0]['x'][] = $date;
+        $data[0]['y'][] = $total;
+    }
+    ?>
+
+    Plotly.newPlot('plot', <?php echo json_encode($data); ?>, {
+        paper_bgcolor: 'rgba(0, 0, 0, 0)',
+        plot_bgcolor: 'rgba(0, 0, 0, 0)',
+        margin: {
+            l: 30,
+            r: 0,
+            b: 30,
+            t: 0,
+            pad: 0
+        }
+    });
+</script>
