@@ -5,13 +5,16 @@
 
 <?php foreach ($groups as $group): ?>
     <?php
-    $attendees = new IteratorIterator($group->getAttendees());
+    $attendees = $event->getAttendees();
+    $groupAttendees = array_filter($attendees, function (Suitwalk\Domain\Attendee\Attendee $attendee)  use ($group) {
+        if ($attendee->getGroup() !== $group) {
+            return false;
+        }
 
-    $groupAttendees = iterator_to_array(new CallbackFilterIterator($attendees, function (Suitwalk\Domain\Attendee\Attendee $attendee) {
         return $attendee->getWalkStatus() !== Suitwalk\Domain\Attendee\Attendee::STATUS_NO;
-    }));
+    });
     ?>
-    <text x="0" y="<?php echo $y; ?>"  font-size="12" font-weight="bold" font-family="sans-serif" fill="#371a01"><?php echo $translator->translate($group->getName()); ?></text>
+    <text x="0" y="<?php echo $y; ?>"  font-size="12" font-weight="bold" font-family="sans-serif" fill="#371a01"><?php echo $group->getName($translator->translate('language-code')); ?></text>
 
     <?php foreach ($groupAttendees as $attendee): ?>
         <?php $y += 16; ?>
