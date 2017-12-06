@@ -15,6 +15,8 @@ return [
             Suitwalk\Domain\Medium\GetAllMediaInterface::class =>
                 Suitwalk\Factory\Infrastructure\Repository\Medium\GetAllMediaFactory::class,
 
+            Suitwalk\Domain\Event\GetAllEventsInterface::class =>
+                Suitwalk\Factory\Infrastructure\Repository\Event\GetAllEventsFactory::class,
             Suitwalk\Domain\Event\GetLatestEventInterface::class =>
                 Suitwalk\Factory\Infrastructure\Repository\Event\GetLatestEventFactory::class,
 

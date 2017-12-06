@@ -68,4 +68,5 @@ To register for the Karlsfurs Suitwalk, please folow this link:
     'galleries' => 'Galleries',
     'history' => 'History',
     'total' => 'Total',
+    'i-calendar' => 'iCalendar',
 ];

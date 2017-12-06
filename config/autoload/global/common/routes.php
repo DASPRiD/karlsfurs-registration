@@ -14,6 +14,8 @@ return [
                 Suitwalk\Factory\Infrastructure\Middleware\MediaFactory::class,
             Suitwalk\Infrastructure\Middleware\History::class =>
                 Suitwalk\Factory\Infrastructure\Middleware\HistoryFactory::class,
+            Suitwalk\Infrastructure\Middleware\ICal::class =>
+                Suitwalk\Factory\Infrastructure\Middleware\ICalFactory::class,
             Suitwalk\Infrastructure\Middleware\Svg::class =>
                 Suitwalk\Factory\Infrastructure\Middleware\SvgFactory::class,
         ],
@@ -54,6 +56,12 @@ return [
             'name' => 'history',
             'path' => '/history',
             'middleware' => Suitwalk\Infrastructure\Middleware\History::class,
+            'allowed_methods' => ['GET'],
+        ],
+        [
+            'name' => 'ical',
+            'path' => '/ical',
+            'middleware' => Suitwalk\Infrastructure\Middleware\ICal::class,
             'allowed_methods' => ['GET'],
         ],
         [

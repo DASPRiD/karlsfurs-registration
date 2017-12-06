@@ -69,4 +69,5 @@ Um dich beim Karlsfurs Suitwalk anzumelden, folge bitte diesem Link:
     'galleries' => 'Galerien',
     'history' => 'Historie',
     'total' => 'Gesamt',
+    'i-calendar' => 'iCalendar',
 ];

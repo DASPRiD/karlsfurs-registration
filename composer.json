@@ -24,7 +24,8 @@
         "zendframework/zend-mail": "^2.7",
         "zendframework/zend-session": "^2.7",
         "dasprid/helios": "^0.1.1",
-        "dflydev/fig-cookies": "^1.0"
+        "dflydev/fig-cookies": "^1.0",
+        "eluceo/ical": "^0.13.0"
     },
     "require-dev": {
         "filp/whoops": "^2.1"
