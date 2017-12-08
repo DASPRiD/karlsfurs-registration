@@ -5,10 +5,11 @@ namespace Suitwalk\Infrastructure\Middleware;
 
 use DateTimeImmutable;
 use DateTimeZone;
-use Eluceo\iCal\Component\Calendar;
-use Eluceo\iCal\Component\Event;
+use Eluceo\iCal\Component\Calendar as VCalendar;
+use Eluceo\iCal\Component\Event as VEvent;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Suitwalk\Domain\Event\Event;
 use Suitwalk\Domain\Event\GetAllEventsInterface;
 use Zend\Diactoros\Response;
 
@@ -26,12 +27,17 @@ final class ICal
 
     public function __invoke(ServerRequestInterface $request) : ResponseInterface
     {
-        $vCalendar = new Calendar('karlsfurs.de');
+        $vCalendar = new VCalendar('karlsfurs.de');
+        $events = $this->getAllEvents->__invoke();
 
-        foreach ($this->getAllEvents->__invoke() as $event) {
+        usort($events, function (Event $a, Event $b) : int {
+            return $a->getDate() <=> $b->getDate();
+        });
+
+        foreach ($events as $event) {
             $date = $event->getDate();
 
-            $vEvent = new Event();
+            $vEvent = new VEvent();
             $vEvent->setDtStart($this->createFullDate($date, $event->getMeetingTime()));
             $vEvent->setDtEnd($this->createFullDate($date, $event->getReturnTime()));
             $vEvent->setSummary(sprintf('Karlsfurs Suitwalk'));
@@ -39,13 +45,19 @@ final class ICal
             $vEvent->setDescription(sprintf('Departure at %s', $event->getDepartureTime()->format('H:i')));
             $vCalendar->addComponent($vEvent);
 
-            $vEvent = new Event();
+            $vEvent = new VEvent();
             $vEvent->setDtStart($this->createFullDate($date, $event->getDinnerTime()));
             $vEvent->setDtEnd($this->createFullDate($date, $event->getDinnerTime()->modify('+2 hours')));
             $vEvent->setSummary(sprintf('Karlsfurs Dinner'));
             $vEvent->setLocation(str_replace("\n", ', ', $event->getRestaurantAddress()));
             $vCalendar->addComponent($vEvent);
         }
+
+        $vCalendar->setCalId('karlsfurs.de');
+        $vCalendar->setName('Karlsfurs');
+        $vCalendar->setDescription('Suitwalks and dinners for Karlsfurs');
+        $vCalendar->setCalendarColor('#F67D07');
+        $vCalendar->setPublishedTTL('P1D');
 
         $response = new Response('php://memory', 200, [
             'Content-Type' => 'text/calendar; charset=utf-8',
