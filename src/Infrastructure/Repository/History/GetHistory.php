@@ -30,10 +30,10 @@ final class GetHistory implements GetHistoryInterface
         $select = ['event.date AS date'];
 
         foreach ($groups as $group) {
-            $select[] = '(
+            $select[] = "(
                 SELECT COUNT(*) FROM attendee
-                WHERE attendee.eventId = event.id AND attendee.groupId = ' . $group->getId() . '            
-            ) AS group' . $group->getId();
+                WHERE attendee.eventId = event.id AND attendee.groupId = " . $group->getId() . " AND walkStatus != 'no'
+            ) AS group" . $group->getId();
         }
 
         $queryBuilder = $this->connection->createQueryBuilder();
