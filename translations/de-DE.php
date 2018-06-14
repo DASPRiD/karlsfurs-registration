@@ -35,7 +35,7 @@ Um dich beim Karlsfurs Suitwalk anzumelden, folge bitte diesem Link:
     ',
     'invalid-email-address' => 'Du hast eine ungültige E-Mail Adresse angegeben.',
     'invalid-token' => 'Dieser Link ist nicht mehr gültig, bitte fordere einen neuen an.',
-    'email-sent' => 'Eine E-Mail mit weiteren Instruktionen wurde dir zugesand.',
+    'email-sent' => 'Eine E-Mail mit weiteren Instruktionen wurde dir zugesandt.',
     'name' => 'Name',
     'group' => 'Gruppe',
     'walk' => 'Walk',
