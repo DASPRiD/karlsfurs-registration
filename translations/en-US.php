@@ -29,7 +29,7 @@ return [
     'login-email-body' => '
 Hello!
 
-To register for the Karlsfurs Suitwalk, please folow this link:
+To register for the Karlsfurs Suitwalk, please follow this link:
 {loginUrl}
     ',
     'invalid-email-address' => 'You have entered an invalid email address.',
