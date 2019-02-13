@@ -150,25 +150,27 @@ $this->layout('layout::default', [
     </div>
 </div>
 
-<h2><?php echo $translator->translate('walk-attendees'); ?></h2>
+<?php
+$attendees = $event->getAttendees();
+?>
+
+<h2>
+    <?php echo $translator->translate('walk-attendees'); ?>
+    <span class="badge">
+        <?php
+        echo count(array_filter($attendees, function (\Suitwalk\Domain\Attendee\Attendee $attendee) : bool {
+            return $attendee->getWalkStatus() !== Suitwalk\Domain\Attendee\Attendee::STATUS_NO;
+        }));
+        ?>
+    </span>
+</h2>
 <div class="row">
     <?php
-    $certainDinnerAttendees = [];
-    $uncertainDinnerAttendees = [];
-    $attendees = $event->getAttendees();
-
-    $certainDinnerAttendees = array_filter($attendees, function (Suitwalk\Domain\Attendee\Attendee $attendee) {
-        return $attendee->getDinnerStatus() === Suitwalk\Domain\Attendee\Attendee::STATUS_YES;
-    });
-
-    $uncertainDinnerAttendees = array_filter($attendees, function (Suitwalk\Domain\Attendee\Attendee $attendee) {
-        return $attendee->getDinnerStatus() === Suitwalk\Domain\Attendee\Attendee::STATUS_MAYBE;
-    });
     ?>
 
     <?php foreach ($groups as $group): ?>
         <?php
-        $groupAttendees = array_filter($attendees, function (Suitwalk\Domain\Attendee\Attendee $attendee)  use ($group) {
+        $groupAttendees = array_filter($attendees, function (Suitwalk\Domain\Attendee\Attendee $attendee) use ($group) {
             if ($attendee->getGroup() !== $group) {
                 return false;
             }
@@ -196,9 +198,28 @@ $this->layout('layout::default', [
     <?php endforeach; ?>
 </div>
 
-<h2><?php echo $translator->translate('dinner-attendees'); ?></h2>
+<h2>
+    <?php echo $translator->translate('dinner-attendees'); ?>
+    <span class="badge">
+        <?php
+        echo count(array_filter($attendees, function (\Suitwalk\Domain\Attendee\Attendee $attendee) : bool {
+            return $attendee->getDinnerStatus() !== Suitwalk\Domain\Attendee\Attendee::STATUS_NO;
+        }));
+        ?>
+    </span>
+</h2>
 <p>
     <?php
+    $certainDinnerAttendees = [];
+    $uncertainDinnerAttendees = [];
+    $certainDinnerAttendees = array_filter($attendees, function (Suitwalk\Domain\Attendee\Attendee $attendee) {
+        return $attendee->getDinnerStatus() === Suitwalk\Domain\Attendee\Attendee::STATUS_YES;
+    });
+
+    $uncertainDinnerAttendees = array_filter($attendees, function (Suitwalk\Domain\Attendee\Attendee $attendee) {
+        return $attendee->getDinnerStatus() === Suitwalk\Domain\Attendee\Attendee::STATUS_MAYBE;
+    });
+
     echo MessageFormatter::formatMessage(
         $locale,
         $translator->translate('dinner-attendee-information'),
