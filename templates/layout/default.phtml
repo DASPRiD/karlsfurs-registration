@@ -4,6 +4,10 @@
 
 /* @var $suitwalkOptions Suitwalk\Infrastructure\Options\SuitwalkOptions */
 $suitwalkOptions = $this->getSuitwalkOptions();
+
+if (!isset($locale)) {
+    $locale = 'en-US';
+}
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $translator->translate('language-code'); ?>">
