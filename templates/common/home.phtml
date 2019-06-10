@@ -12,6 +12,14 @@ $this->layout('layout::default', [
     'emailAddress' => $emailAddress,
     'translator' => $translator,
 ]);
+
+$collator = new Collator($locale);
+$collator->setAttribute(Collator::ALTERNATE_HANDLING, Collator::SHIFTED);
+$collator->setAttribute(Collator::STRENGTH, Collator::QUATERNARY);
+
+$attendeeSort = function (Suitwalk\Domain\Attendee\Attendee $a, Suitwalk\Domain\Attendee\Attendee $b) use ($collator) {
+    return $collator->compare($a->getName(), $b->getName());
+};
 ?>
 
 <h1 class="page-header"><?php echo $translator->translate('suitwalk-headline', [
@@ -177,6 +185,7 @@ $attendees = $event->getAttendees();
 
             return $attendee->getWalkStatus() !== Suitwalk\Domain\Attendee\Attendee::STATUS_NO;
         });
+        usort($groupAttendees, $attendeeSort);
         ?>
         <div class="col-md-3">
             <div class="panel panel-default">
@@ -231,9 +240,7 @@ $attendees = $event->getAttendees();
 
     $dinnerAttendees = array_merge($certainDinnerAttendees, $uncertainDinnerAttendees);
     $collator = new Collator($locale);
-    usort($dinnerAttendees, function (Suitwalk\Domain\Attendee\Attendee $a, Suitwalk\Domain\Attendee\Attendee $b) use ($collator) {
-        return $collator->compare($a->getName(), $b->getName());
-    });
+    usort($dinnerAttendees, $attendeeSort);
     ?>
 
     <ul class="dinner-attendees">
