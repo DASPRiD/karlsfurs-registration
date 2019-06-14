@@ -7,7 +7,7 @@ use DateTimeImmutable;
 use Doctrine\Common\Collections\Collection;
 use Suitwalk\Domain\Attendee\Attendee;
 use Suitwalk\Domain\Medium\Medium;
-use Suitwalk\Infrastructure\Middleware\Media;
+use Suitwalk\Infrastructure\Middleware\MediaHandler;
 
 final class Event
 {
@@ -67,7 +67,7 @@ final class Event
     private $attendees;
 
     /**
-     * @var Media[]|Collection
+     * @var MediaHandler[]|Collection
      */
     private $media;
 

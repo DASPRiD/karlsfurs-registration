@@ -1,12 +1,13 @@
 <?php
 declare(strict_types = 1);
 
-namespace Suitwalk\Infrastructure\Middleware;
+namespace Suitwalk\Infrastructure\Handler;
 
 use DASPRiD\Helios\IdentityMiddleware;
 use DateTimeImmutable;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Suitwalk\Domain\Attendee\Attendee;
 use Suitwalk\Domain\Attendee\ReplaceAttendeesInterface;
 use Suitwalk\Domain\Attendee\SearchAttendeesByEmailAddressInterface;
@@ -18,7 +19,7 @@ use Suitwalk\Infrastructure\Options\SuitwalkOptions;
 use Suitwalk\Infrastructure\Response\ResponseRendererInterface;
 use Zend\Diactoros\Response\RedirectResponse;
 
-final class Home
+final class HomeHandler implements RequestHandlerInterface
 {
     /**
      * @var SuitwalkOptions
@@ -73,7 +74,7 @@ final class Home
         $this->responseRenderer = $responseRenderer;
     }
 
-    public function __invoke(ServerRequestInterface $request) : ResponseInterface
+    public function handle(ServerRequestInterface $request) : ResponseInterface
     {
         $event = $this->getLatestEvent->__invoke();
         $groups = $this->getAllGroup->__invoke();

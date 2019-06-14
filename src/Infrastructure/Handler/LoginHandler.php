@@ -1,9 +1,9 @@
 <?php
 declare(strict_types = 1);
 
-namespace Suitwalk\Infrastructure\Middleware;
+namespace Suitwalk\Infrastructure\Handler;
 
-use DASPRiD\Helios\CookieManagerInterface;
+use DASPRiD\Helios\IdentityCookieManager;
 use DateTimeImmutable;
 use Exception;
 use Lcobucci\JWT\Builder;
@@ -13,6 +13,7 @@ use Lcobucci\JWT\Token;
 use Lcobucci\JWT\ValidationData;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Suitwalk\Infrastructure\Response\ResponseRendererInterface;
 use Zend\Diactoros\Response\RedirectResponse;
 use Zend\Expressive\Helper\UrlHelper;
@@ -20,7 +21,7 @@ use Zend\Expressive\Template\TemplateRendererInterface;
 use Zend\Mail\Message;
 use Zend\Mail\Transport\Sendmail;
 
-final class Login
+final class LoginHandler implements RequestHandlerInterface
 {
     /**
      * @var Signer
@@ -43,7 +44,7 @@ final class Login
     private $urlHelper;
 
     /**
-     * @var CookieManagerInterface
+     * @var IdentityCookieManager
      */
     private $cookieManager;
 
@@ -59,10 +60,10 @@ final class Login
 
     public function __construct(
         Signer $signer,
-        $signatureKey,
-        $verificationKey,
+        string $signatureKey,
+        string $verificationKey,
         UrlHelper $urlHelper,
-        CookieManagerInterface $cookieManager,
+        IdentityCookieManager $cookieManager,
         TemplateRendererInterface $templateRenderer,
         ResponseRendererInterface $responseRenderer
     ) {
@@ -75,7 +76,7 @@ final class Login
         $this->responseRenderer = $responseRenderer;
     }
 
-    public function __invoke(ServerRequestInterface $request) : ResponseInterface
+    public function handle(ServerRequestInterface $request) : ResponseInterface
     {
         if ('POST' === $request->getMethod()) {
             $post = $request->getParsedBody();
@@ -116,7 +117,7 @@ final class Login
             ]);
         }
 
-        return $this->cookieManager->injectTokenCookie(
+        return $this->cookieManager->injectCookie(
             new RedirectResponse($this->urlHelper->generate('home')),
             $token->getClaim('emailAddress'),
             false

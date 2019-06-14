@@ -1,15 +1,16 @@
 <?php
 declare(strict_types = 1);
 
-namespace Suitwalk\Infrastructure\Middleware;
+namespace Suitwalk\Infrastructure\Handler;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Suitwalk\Domain\Group\GetAllGroupsInterface;
 use Suitwalk\Domain\History\GetHistoryInterface;
 use Suitwalk\Infrastructure\Response\ResponseRendererInterface;
 
-final class History
+final class HistoryHandler implements RequestHandlerInterface
 {
     /**
      * @var GetAllGroupsInterface
@@ -36,7 +37,7 @@ final class History
         $this->responseRenderer = $responseRenderer;
     }
 
-    public function __invoke(ServerRequestInterface $request) : ResponseInterface
+    public function handle(ServerRequestInterface $request) : ResponseInterface
     {
         return $this->responseRenderer->render('common::history', $request, [
             'history' => $this->getHistory->__invoke($this->getAllGroups->__invoke()),

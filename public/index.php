@@ -1,13 +1,18 @@
 <?php
-if (php_sapi_name() === 'cli-server'
-    && is_file(__DIR__ . parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH))
-) {
+declare(strict_types = 1);
+
+if (PHP_SAPI === 'cli-server' && $_SERVER['SCRIPT_FILENAME'] !== __FILE__) {
     return false;
 }
 
 chdir(dirname(__DIR__));
 require 'vendor/autoload.php';
 
-$container = require 'config/container.php';
-$app = $container->get(\Zend\Expressive\Application::class);
-$app->run();
+(function () {
+    $container = require 'config/container.php';
+    $app = $container->get(\Zend\Expressive\Application::class);
+
+    (require 'config/pipeline.php')($app);
+
+    $app->run();
+})();

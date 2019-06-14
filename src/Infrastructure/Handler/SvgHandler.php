@@ -1,17 +1,18 @@
 <?php
 declare(strict_types = 1);
 
-namespace Suitwalk\Infrastructure\Middleware;
+namespace Suitwalk\Infrastructure\Handler;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Suitwalk\Domain\Event\GetLatestEventInterface;
 use Suitwalk\Domain\Group\GetAllGroupsInterface;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\Stream;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
-final class Svg
+final class SvgHandler implements RequestHandlerInterface
 {
     /**
      * @var GetLatestEventInterface
@@ -38,7 +39,7 @@ final class Svg
         $this->templateRenderer = $templateRenderer;
     }
 
-    public function __invoke(ServerRequestInterface $request) : ResponseInterface
+    public function handle(ServerRequestInterface $request) : ResponseInterface
     {
         $body = new Stream('php://temp', 'wb+');
         $body->write($this->templateRenderer->render('common::svg', [

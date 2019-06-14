@@ -1,8 +1,0 @@
-<?php
-return [
-    'login' => [
-        'signer' => Lcobucci\JWT\Signer\Hmac\Sha256::class,
-        'signature_key' => 'key',
-        'verification_key' => 'key',
-    ],
-];

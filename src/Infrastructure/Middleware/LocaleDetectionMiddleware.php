@@ -7,19 +7,21 @@ use Dflydev\FigCookies\Cookies;
 use Locale;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
-final class LocaleDetection
+final class LocaleDetectionMiddleware implements MiddlewareInterface
 {
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next) : ResponseInterface
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
     {
-        return $next($request->withAttribute('locale', $this->discoverLocale($request)), $response);
+        return $handler->handle($request->withAttribute('locale', $this->discoverLocale($request)));
     }
 
     private function discoverLocale(ServerRequestInterface $request) : string
     {
         $cookies = Cookies::fromRequest($request);
 
-        if ($cookies->has('locale') && in_array($cookies->get('locale')->getValue(), SetLocale::AVAILABLE_LOCALES)) {
+        if ($cookies->has('locale') && in_array($cookies->get('locale')->getValue(), SetLocaleHandler::AVAILABLE_LOCALES)) {
             return $cookies->get('locale')->getValue();
         }
 

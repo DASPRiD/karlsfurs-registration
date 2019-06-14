@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-namespace Suitwalk\Infrastructure\Middleware;
+namespace Suitwalk\Infrastructure\Handler;
 
 use DateTimeImmutable;
 use DateTimeZone;
@@ -9,11 +9,12 @@ use Eluceo\iCal\Component\Calendar as VCalendar;
 use Eluceo\iCal\Component\Event as VEvent;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Suitwalk\Domain\Event\Event;
 use Suitwalk\Domain\Event\GetAllEventsInterface;
 use Zend\Diactoros\Response;
 
-final class ICal
+final class ICalHandler implements RequestHandlerInterface
 {
     /**
      * @var GetAllEventsInterface
@@ -25,7 +26,7 @@ final class ICal
         $this->getAllEvents = $getAllEvents;
     }
 
-    public function __invoke(ServerRequestInterface $request) : ResponseInterface
+    public function handle(ServerRequestInterface $request) : ResponseInterface
     {
         $vCalendar = new VCalendar('karlsfurs.de');
         $events = $this->getAllEvents->__invoke();

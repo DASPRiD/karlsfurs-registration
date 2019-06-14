@@ -1,20 +1,24 @@
 <?php
-use Zend\Stdlib\ArrayUtils;
-use Zend\Stdlib\Glob;
+use Zend\ConfigAggregator\ArrayProvider;
+use Zend\ConfigAggregator\ConfigAggregator;
+use Zend\ConfigAggregator\PhpFileProvider;
 
-$cachedConfigFile = 'data/cache/app_config.php';
-$config = [];
+$cacheConfig = [
+    'config_cache_path' => 'data/cache/config-cache.php',
+];
 
-if (is_file($cachedConfigFile)) {
-    $config = include $cachedConfigFile;
-} else {
-    foreach (Glob::glob('config/autoload/{global,local}/{.,*}/*.php', Glob::GLOB_BRACE) as $file) {
-        $config = ArrayUtils::merge($config, include $file);
-    }
+$aggregator = new ConfigAggregator([
+    \Zend\Expressive\Plates\ConfigProvider::class,
+    \Zend\Expressive\Helper\ConfigProvider::class,
+    \Zend\Expressive\Router\FastRouteRouter\ConfigProvider::class,
+    \Zend\Expressive\ConfigProvider::class,
+    \Zend\HttpHandlerRunner\ConfigProvider::class,
+    \Zend\Expressive\Router\ConfigProvider::class,
+    \DASPRiD\Pikkuleipa\ConfigProvider::class,
+    \DASPRiD\Helios\ConfigProvider::class,
+    new ArrayProvider($cacheConfig),
+    new PhpFileProvider('config/autoload/{global,local}/{.,*,*/*}/*.php'),
+    new PhpFileProvider('config/development.config.php'),
+], 'disable' === getenv('CONFIG_CACHE', true) ? null : $cacheConfig['config_cache_path']);
 
-    if (isset($config['config_cache_enabled']) && $config['config_cache_enabled'] === true) {
-        file_put_contents($cachedConfigFile, '<?php return ' . var_export($config, true) . ';');
-    }
-}
-
-return new ArrayObject($config, ArrayObject::ARRAY_AS_PROPS);
+return $aggregator->getMergedConfig();

@@ -1,17 +1,18 @@
 <?php
 declare(strict_types = 1);
 
-namespace Suitwalk\Infrastructure\Middleware;
+namespace Suitwalk\Infrastructure\Handler;
 
 use DateTimeImmutable;
 use Dflydev\FigCookies\SetCookie;
 use Dflydev\FigCookies\SetCookies;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Diactoros\Response\RedirectResponse;
 use Zend\Expressive\Helper\UrlHelper;
 
-final class SetLocale
+final class SetLocaleHandler implements RequestHandlerInterface
 {
     const AVAILABLE_LOCALES = ['de-DE', 'en-US'];
 
@@ -25,7 +26,7 @@ final class SetLocale
         $this->urlHelper = $urlHelper;
     }
 
-    public function __invoke(ServerRequestInterface $request) : ResponseInterface
+    public function handle(ServerRequestInterface $request) : ResponseInterface
     {
         $locale = $request->getAttribute('locale');
 

@@ -1,0 +1,68 @@
+<?php
+use Zend\ConfigAggregator\ConfigAggregator;
+
+return [
+    'debug' => true,
+    ConfigAggregator::ENABLE_CACHE => false,
+
+    'pikkuleipa' => [
+        'cookie_settings' => [
+            'helios' => [
+                'path' => '/',
+                'secure' => false,
+                'lifetime' => 2592000,
+            ],
+        ],
+        'token' => [
+            'signer_class' => Lcobucci\JWT\Signer\Hmac\Sha256::class,
+            'signature_key' => 'dev',
+            'verification_key' => 'dev',
+        ],
+    ],
+
+    'helios' => [
+        'cookie_name' => 'helios',
+        'refresh_time' => 60,
+        'identity_lookup_id' => '',
+    ],
+
+    'dependencies' => [
+        'factories' => [
+            Zend\Expressive\Middleware\ErrorResponseGenerator::class =>
+                Zend\Expressive\Container\WhoopsErrorResponseGeneratorFactory::class,
+            'Zend\Expressive\Whoops' => Zend\Expressive\Container\WhoopsFactory::class,
+            'Zend\Expressive\WhoopsPageHandler' => Zend\Expressive\Container\WhoopsPageHandlerFactory::class,
+        ],
+    ],
+
+    'whoops' => [
+        'json_exceptions' => [
+            'display' => true,
+            'show_trace' => true,
+            'ajax_only' => true,
+        ],
+    ],
+
+    'doctrine' => [
+        'connection' => [
+            'orm_default' => [
+                'params' => [
+                    'url' => 'mysql://dev:dev@localhost/dev_suitwalk',
+                ],
+            ],
+        ],
+    ],
+
+    'login' => [
+        'signer' => Lcobucci\JWT\Signer\Hmac\Sha256::class,
+        'signature_key' => 'key',
+        'verification_key' => 'key',
+    ],
+
+    'suitwalk' => [
+        'oauth_client_id' => '',
+        'maps_api_key' => '',
+        'furbase_thread_url' => 'http://forum.furbase.de/index.php?thread/67830',
+        'telegram_group_url' => 'http://telegram.me/karlsfurs_suitwalk',
+    ],
+];

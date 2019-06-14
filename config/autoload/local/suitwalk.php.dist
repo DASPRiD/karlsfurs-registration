@@ -1,8 +1,0 @@
-<?php
-return [
-    'suitwalk' => [
-        'maps_api_key' => '',
-        'furbase_thread_url' => '',
-        'telegram_group_url' => '',
-    ],
-];

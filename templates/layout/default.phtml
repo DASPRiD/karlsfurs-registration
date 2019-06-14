@@ -41,6 +41,8 @@ if (!isset($locale)) {
     <meta name="msapplication-TileColor" content="#6089ab">
     <meta name="msapplication-TileImage" content="/mstile-144x144.png">
     <meta name="theme-color" content="#ffffff">
+
+    <meta name="google-signin-client_id" content="<?php echo $suitwalkOptions->getOauthClientId(); ?>">
 </head>
 <body>
     <div class="container">
@@ -62,14 +64,29 @@ if (!isset($locale)) {
                     <li><a href="<?php echo $suitwalkOptions->getFurbaseThreadUrl(); ?>"><?php echo $translator->translate('furbase-thread'); ?></a></li>
                     <li><a href="<?php echo $suitwalkOptions->getTelegramGroupUrl(); ?>"><?php echo $translator->translate('telegram-group'); ?></a></li>
                 </ul>
-
                 <?php if (null === $emailAddress): ?>
-                    <form class="navbar-form navbar-right" method="POST" action="<?php echo $this->url('login'); ?>">
-                        <div class="form-group">
-                            <input type="email" name="emailAddress" placeholder="<?php echo $translator->translate('email-address'); ?>" class="form-control">
-                        </div>
-                        <button type="submit" class="btn btn-success"><?php echo $translator->translate('login'); ?></button>
-                    </form>
+                    <ul class="nav navbar-nav navbar-right" method="POST" action="<?php echo $this->url('login'); ?>">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Login <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <form class="navbar-form login-form" method="POST" action="<?php echo $this->url('login'); ?>">
+                                        <div class="input-group">
+                                            <input type="email" name="emailAddress" placeholder="<?php echo $translator->translate('email-address'); ?>" class="form-control">
+                                            <span class="input-group-btn">
+                                                <button type="submit" class="btn btn-success"><?php echo $translator->translate('login'); ?></button>
+                                            </span>
+                                        </div>
+                                    </form>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <p class="dropdown-title">Or log in via Google:</p>
+                                    <div class="g-signin2" data-onsuccess="onGoogleSignIn"></div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
                 <?php else: ?>
                     <ul class="nav navbar-nav navbar-right">
                         <li>
@@ -98,7 +115,7 @@ if (!isset($locale)) {
 
         <footer id="footer">
             <p>
-                Copyright 2016 Ben 'DASPRiD' Scholzen |
+                Copyright 2016-2019 Ben 'DASPRiD' Scholzen |
                 <a href="https://github.com/DASPRiD/karlsfurs-registration">GitHub</a>
             </p>
         </footer>
@@ -107,5 +124,9 @@ if (!isset($locale)) {
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/js/suitwalk.js"></script>
+
+    <?php if (null === $emailAddress): ?>
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <?php endif; ?>
 </body>
 </html>

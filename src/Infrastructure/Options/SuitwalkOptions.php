@@ -6,6 +6,11 @@ final class SuitwalkOptions
     /**
      * @var string
      */
+    private $oauthClientId;
+
+    /**
+     * @var string
+     */
     private $mapsApiKey;
 
     /**
@@ -18,11 +23,21 @@ final class SuitwalkOptions
      */
     private $telegramGroupUrl;
 
-    public function __construct(string $mapsApiKey, string $furbaseThreadUrl, string $telegramGroupUrl)
-    {
+    public function __construct(
+        string $oauthClientId,
+        string $mapsApiKey,
+        string $furbaseThreadUrl,
+        string $telegramGroupUrl
+    ) {
+        $this->oauthClientId = $oauthClientId;
         $this->mapsApiKey = $mapsApiKey;
         $this->furbaseThreadUrl = $furbaseThreadUrl;
         $this->telegramGroupUrl = $telegramGroupUrl;
+    }
+
+    public function getOauthClientId() : string
+    {
+        return $this->oauthClientId;
     }
 
     public function getMapsApiKey() : string

@@ -11,6 +11,7 @@ final class SuitwalkOptionsFactory
         $config = $container->get('config')['suitwalk'];
 
         return new SuitwalkOptions(
+            $config['oauth_client_id'] ?? '',
             $config['maps_api_key'] ?? '',
             $config['furbase_thread_url'] ?? '',
             $config['telegram_group_url'] ?? ''

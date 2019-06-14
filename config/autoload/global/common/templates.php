@@ -10,7 +10,10 @@ return [
     ],
 
     'templates' => [
+        'extension' => 'phtml',
         'paths' => [
+            'layout' => ['templates/layout'],
+            'error' => ['templates/error'],
             'common' => ['templates/common'],
         ],
     ],

@@ -17,6 +17,19 @@ body {
     border-radius: 0;
 }
 
+.login-form {
+    width: 300px;
+}
+
+.g-signin2 {
+    padding: 3px 20px 6px 20px;
+}
+
+.dropdown-title {
+    padding: 3px 20px 6px 20px;
+    margin: 0;
+}
+
 #header {
     position: relative;
     display: block;
