@@ -1,5 +1,4 @@
 config/development.config.php
 composer.phar
-composer.lock
 vendor/
 node_modules
