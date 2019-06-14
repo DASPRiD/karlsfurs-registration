@@ -11,9 +11,9 @@
     ],
     "require": {
         "php": "^7.2",
-        "ext-intl": "^1.1",
-        "ext-json": "^1.6",
-        "ext-pdo": "^7.2",
+        "ext-intl": "*",
+        "ext-json": "*",
+        "ext-pdo": "*",
         "dasprid/container-interop-doctrine": "^1.0.0",
         "dasprid/formidable": "^0.4.0",
         "dasprid/helios": "^1.0.1",
