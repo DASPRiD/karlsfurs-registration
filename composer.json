@@ -14,6 +14,7 @@
         "ext-intl": "*",
         "ext-json": "*",
         "ext-pdo": "*",
+        "darsyn/ip": "^4.0",
         "dasprid/container-interop-doctrine": "^1.0.0",
         "dasprid/formidable": "^0.4.0",
         "dasprid/helios": "^1.0.1",

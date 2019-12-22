@@ -14,6 +14,7 @@
         <field name="walkStatus" type="string"/>
         <field name="dinnerStatus" type="string"/>
         <field name="lastUpdateDateTime" type="datetime_immutable"/>
+        <field name="ipAddress" type="ip_multi" nullable="true"/>
 
         <many-to-one field="event" target-entity="Suitwalk\Domain\Event\Event" inversed-by="attendees">
             <join-column name="eventId" referenced-column-name="id" nullable="false"/>

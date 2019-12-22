@@ -3,6 +3,7 @@ declare(strict_types = 1);
 
 namespace Suitwalk\Infrastructure\Form;
 
+use Darsyn\IP\Version\Multi;
 use DASPRiD\Formidable\Form;
 use DASPRiD\Formidable\FormInterface;
 use DASPRiD\Formidable\Mapping\FieldMapping;
@@ -26,7 +27,7 @@ final class AttendeeFormBuilder
         $this->groupFormatter = $groupFormatter;
     }
 
-    public function buildForm(string $emailAddress, Event $event, array $groups) : FormInterface
+    public function buildForm(string $emailAddress, Multi $ipAddress, Event $event, array $groups) : FormInterface
     {
         $groupIds = [];
 
@@ -48,6 +49,7 @@ final class AttendeeFormBuilder
                 'name' => FieldMappingFactory::nonEmptyText(0, 32),
                 'walkStatus' => FieldMappingFactory::text()->verifying($statusConstraint),
                 'dinnerStatus' => FieldMappingFactory::text()->verifying($statusConstraint),
+                'ipAddress' => FieldMappingFactory::ignored($ipAddress),
             ], Attendee::class)),
         ], AttendeeData::class));
     }

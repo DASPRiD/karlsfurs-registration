@@ -3,6 +3,7 @@ declare(strict_types = 1);
 
 namespace Suitwalk\Domain\Attendee;
 
+use Darsyn\IP\Version\Multi;
 use DateTimeImmutable;
 use Suitwalk\Domain\Event\Event;
 use Suitwalk\Domain\Group\Group;
@@ -53,13 +54,19 @@ final class Attendee
      */
     private $lastUpdateDateTime;
 
+    /**
+     * @var Multi|null
+     */
+    private $ipAddress;
+
     public function __construct(
         string $emailAddress,
         Event $event,
         Group $group,
         string $name,
         string $walkStatus,
-        string $dinnerStatus
+        string $dinnerStatus,
+        Multi $ipAddress
     ) {
         $this->emailAddress = $emailAddress;
         $this->event = $event;
@@ -67,6 +74,7 @@ final class Attendee
         $this->name = $name;
         $this->walkStatus = $walkStatus;
         $this->dinnerStatus = $dinnerStatus;
+        $this->ipAddress = $ipAddress;
         $this->updateLastUpdateDateTime();
     }
 
@@ -88,6 +96,11 @@ final class Attendee
     public function getDinnerStatus() : string
     {
         return $this->dinnerStatus;
+    }
+
+    public function getIpAddress() : ?Multi
+    {
+        return $this->ipAddress;
     }
 
     public function getLastUpdateDateTime() : DateTimeImmutable

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e1e15723eec4f228be3c938fa08a5246",
+    "content-hash": "072b8eaf65474f10ded21d855a48c418",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -35,6 +35,7 @@
             ],
             "description": "Promoting the interoperability of container objects (DIC, SL, etc.)",
             "homepage": "https://github.com/container-interop/container-interop",
+            "abandoned": "psr/container",
             "time": "2017-02-14T19:40:03+00:00"
         },
         {
@@ -77,6 +78,56 @@
             ],
             "description": "Clock abstraction library",
             "time": "2015-06-08T16:12:34+00:00"
+        },
+        {
+            "name": "darsyn/ip",
+            "version": "4.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/darsyn/ip.git",
+                "reference": "36db5b2160190de65ea66db4eedf38b3cfaa4d94"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/darsyn/ip/zipball/36db5b2160190de65ea66db4eedf38b3cfaa4d94",
+                "reference": "36db5b2160190de65ea66db4eedf38b3cfaa4d94",
+                "shasum": ""
+            },
+            "require": {
+                "php-64bit": ">=5.6",
+                "php-ipv6": ">=5.6"
+            },
+            "suggest": {
+                "doctrine/dbal": "to use IP as a column type"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Darsyn\\IP\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Zan Baldwin",
+                    "email": "hello@zanbaldwin.com",
+                    "homepage": "https://zanbaldwin.com"
+                }
+            ],
+            "description": "An immutable IP Address value object that provides several different notations, including helper functions.",
+            "homepage": "https://github.com/darsyn/ip",
+            "keywords": [
+                "IP",
+                "immutable",
+                "ipv4",
+                "ipv6",
+                "library",
+                "value-object"
+            ],
+            "time": "2018-06-15T13:45:56+00:00"
         },
         {
             "name": "dasprid/container-interop-doctrine",

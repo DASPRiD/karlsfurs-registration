@@ -3,6 +3,7 @@ declare(strict_types = 1);
 
 namespace Suitwalk\Infrastructure\Handler;
 
+use Darsyn\IP\Version\Multi;
 use DASPRiD\Helios\IdentityMiddleware;
 use DateTimeImmutable;
 use Psr\Http\Message\ResponseInterface;
@@ -90,19 +91,20 @@ final class HomeHandler implements RequestHandlerInterface
             ]);
         }
 
-        $form = $this->formBuilder->buildForm($emailAddress, $event, $groups);
+        $ipAddress = Multi::factory($request->getServerParams()['REMOTE_ADDR']);
+        $form = $this->formBuilder->buildForm($emailAddress, $ipAddress, $event, $groups);
         $existingAttendees = $this->searchAttendeesByEmailAddress->__invoke($event, $emailAddress);
 
         if ('POST' === $request->getMethod()) {
             $form = $form->bindFromRequest($request);
 
             if (!$form->hasErrors()) {
-                $this->replaceAttendees->__invoke($existingAttendees, $form->getValue()->getAttendees());
+                $this->replaceAttendees->__invoke($existingAttendees, $form->getValue()->getAttendees($ipAddress));
                 return new RedirectResponse($request->getUri());
             }
         } elseif (0 === count($existingAttendees)) {
             $form = $form->fill(new AttendeeData([
-                new Attendee('', $event, $groups[0], '', Attendee::STATUS_NO, Attendee::STATUS_NO)
+                new Attendee('', $event, $groups[0], '', Attendee::STATUS_NO, Attendee::STATUS_NO, $ipAddress)
             ]));
         } else {
             $form = $form->fill(new AttendeeData($existingAttendees));

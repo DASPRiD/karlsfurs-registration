@@ -23,5 +23,8 @@ return [
                 'paths' => __DIR__ . '/../../../doctrine',
             ],
         ],
+        'types' => [
+            'ip_multi' => \Darsyn\IP\Doctrine\MultiType::class,
+        ],
     ],
 ];
