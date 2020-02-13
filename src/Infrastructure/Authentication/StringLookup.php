@@ -20,7 +20,7 @@ final class StringLookup implements IdentityLookupInterface
             return LookupResult::invalid();
         }
 
-        if (false === filter_var($subject, FILTER_VALIDATE_EMAIL)) {
+        if (false === filter_var($emailAddress, FILTER_VALIDATE_EMAIL)) {
             return LookupResult::invalid();
         }
 
