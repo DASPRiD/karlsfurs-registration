@@ -8,7 +8,7 @@ $translator = $this->getTranslator($locale);
 $dateFormatter = new IntlDateFormatter($locale, IntlDateFormatter::LONG, IntlDateFormatter::NONE);
 
 $this->layout('layout::default', [
-    'emailAddress' => $emailAddress,
+    'displayName' => $displayName,
     'translator' => $translator,
 ]);
 ?>

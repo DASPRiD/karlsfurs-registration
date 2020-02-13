@@ -6,7 +6,7 @@ return [
     'email-address' => 'Email address',
     'login' => 'Login',
     'logout' => 'Logout',
-    'logged-in-as' => 'Logged in as {emailAddress}',
+    'logged-in-as' => 'Logged in as {displayName}',
     'suitwalk-headline' => 'Suitwalk on {nextDate, date, long}',
     'lead-paragraph' => '
         The next suitwalk will be held on {nextDate, date, long}. For questions or discussions, please refer to the
@@ -15,7 +15,8 @@ return [
     'registration' => 'Registration',
     'registration-hint' => '
         To register for the Karlsfurs Suitwalk, please log in above with your email address. You will receive a link
-        via email with which you can add yourself to the list.
+        via email with which you can add yourself to the list. Alternatively, you can also log in with your Google or
+        Telegram account.
     ',
     'registration-closed-hint' => 'The registration is closed.',
     'meeting-point' => 'Meeting point',

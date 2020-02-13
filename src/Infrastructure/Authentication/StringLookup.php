@@ -10,10 +10,23 @@ final class StringLookup implements IdentityLookupInterface
 {
     public function lookup($subject) : LookupResult
     {
-        if (!is_string($subject) || false === filter_var($subject, FILTER_VALIDATE_EMAIL)) {
+        if (is_string($subject)) {
+            $emailAddress = $subject;
+            $displayName = $emailAddress;
+        } elseif (is_array($subject)) {
+            $emailAddress = $subject['email_address'];
+            $displayName = $subject['display_name'];
+        } else {
             return LookupResult::invalid();
         }
 
-        return LookupResult::fromIdentity($subject);
+        if (false === filter_var($subject, FILTER_VALIDATE_EMAIL)) {
+            return LookupResult::invalid();
+        }
+
+        return LookupResult::fromIdentity([
+            'emailAddress' => $emailAddress,
+            'displayName' => $displayName,
+        ]);
     }
 }

@@ -11,6 +11,8 @@ final class SuitwalkOptionsFactory
         $config = $container->get('config')['suitwalk'];
 
         return new SuitwalkOptions(
+            $config['telegram_bot_name'] ?? '',
+            $config['telegram_bot_token'] ?? '',
             $config['oauth_client_id'] ?? '',
             $config['maps_api_key'] ?? '',
             $config['furbase_thread_url'] ?? '',

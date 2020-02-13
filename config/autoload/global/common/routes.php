@@ -20,6 +20,8 @@ return [
                 Suitwalk\Factory\Infrastructure\Handler\SvgHandlerFactory::class,
             Suitwalk\Infrastructure\Handler\TokenSigninHandler::class =>
                 Suitwalk\Factory\Infrastructure\Handler\TokenSigninHandlerFactory::class,
+            Suitwalk\Infrastructure\Handler\TelegramSigninHandler::class =>
+                Suitwalk\Factory\Infrastructure\Handler\TelegramSigninHandlerFactory::class,
         ],
     ],
 
@@ -41,6 +43,12 @@ return [
             'path' => '/token-signin',
             'middleware' => Suitwalk\Infrastructure\Handler\TokenSigninHandler::class,
             'allowed_methods' => ['POST'],
+        ],
+        [
+            'name' => 'telegram-signin',
+            'path' => '/telegram-signin',
+            'middleware' => Suitwalk\Infrastructure\Handler\TelegramSigninHandler::class,
+            'allowed_methods' => ['GET'],
         ],
         [
             'name' => 'logout',

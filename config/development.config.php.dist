@@ -60,6 +60,8 @@ return [
     ],
 
     'suitwalk' => [
+        'telegram_bot_name' => '',
+        'telegram_bot_token' => '',
         'oauth_client_id' => '',
         'maps_api_key' => '',
         'furbase_thread_url' => 'http://forum.furbase.de/index.php?thread/67830',

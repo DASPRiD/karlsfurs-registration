@@ -6,6 +6,16 @@ final class SuitwalkOptions
     /**
      * @var string
      */
+    private $telegramBotName;
+
+    /**
+     * @var string
+     */
+    private $telegramBotToken;
+
+    /**
+     * @var string
+     */
     private $oauthClientId;
 
     /**
@@ -24,15 +34,29 @@ final class SuitwalkOptions
     private $telegramGroupUrl;
 
     public function __construct(
+        string $telegramBotName,
+        string $telegramBotToken,
         string $oauthClientId,
         string $mapsApiKey,
         string $furbaseThreadUrl,
         string $telegramGroupUrl
     ) {
+        $this->telegramBotName = $telegramBotName;
+        $this->telegramBotToken = $telegramBotToken;
         $this->oauthClientId = $oauthClientId;
         $this->mapsApiKey = $mapsApiKey;
         $this->furbaseThreadUrl = $furbaseThreadUrl;
         $this->telegramGroupUrl = $telegramGroupUrl;
+    }
+
+    public function getTelegramBotName() : string
+    {
+        return $this->telegramBotName;
+    }
+
+    public function getTelegramBotToken() : string
+    {
+        return $this->telegramBotToken;
     }
 
     public function getOauthClientId() : string

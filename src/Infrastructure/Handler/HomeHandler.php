@@ -80,7 +80,7 @@ final class HomeHandler implements RequestHandlerInterface
         $event = $this->getLatestEvent->__invoke();
         $groups = $this->getAllGroup->__invoke();
         $registrationClosed = (new DateTimeImmutable() > $event->getDate());
-        $emailAddress = $request->getAttribute(IdentityMiddleware::IDENTITY_ATTRIBUTE);
+        $emailAddress = $request->getAttribute(IdentityMiddleware::IDENTITY_ATTRIBUTE)['emailAddress'];
 
         if (null === $emailAddress || $registrationClosed) {
             return $this->responseRenderer->render('common::home', $request, [

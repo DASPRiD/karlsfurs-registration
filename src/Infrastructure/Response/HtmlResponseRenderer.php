@@ -23,7 +23,9 @@ final class HtmlResponseRenderer implements ResponseRendererInterface
 
     public function render(string $name, ServerRequestInterface $request, array $params = []) : ResponseInterface
     {
-        $params['emailAddress'] = $request->getAttribute(IdentityMiddleware::IDENTITY_ATTRIBUTE);
+        $identity = $request->getAttribute(IdentityMiddleware::IDENTITY_ATTRIBUTE);
+        $params['emailAddress'] = $identity['emailAddress'] ?? null;
+        $params['displayName'] = $identity['displayName'] ?? null;
         $params['locale'] = $request->getAttribute('locale');
 
         return new HtmlResponse($this->templateRenderer->render(

@@ -1,5 +1,5 @@
 <?php
-/* @var $emailAddress string */
+/* @var $displayName string */
 /* @var $translator Suitwalk\Infrastructure\I18n\Translator */
 
 /* @var $suitwalkOptions Suitwalk\Infrastructure\Options\SuitwalkOptions */
@@ -64,7 +64,7 @@ if (!isset($locale)) {
                     <li><a href="<?php echo $suitwalkOptions->getFurbaseThreadUrl(); ?>"><?php echo $translator->translate('furbase-thread'); ?></a></li>
                     <li><a href="<?php echo $suitwalkOptions->getTelegramGroupUrl(); ?>"><?php echo $translator->translate('telegram-group'); ?></a></li>
                 </ul>
-                <?php if (null === $emailAddress): ?>
+                <?php if (null === $displayName): ?>
                     <ul class="nav navbar-nav navbar-right" method="POST" action="<?php echo $this->url('login'); ?>">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Login <span class="caret"></span></a>
@@ -81,8 +81,16 @@ if (!isset($locale)) {
                                 </li>
                                 <li class="divider"></li>
                                 <li>
-                                    <p class="dropdown-title">Or log in via Google:</p>
+                                    <p class="dropdown-title">Or log in via Google or Telegram:</p>
                                     <div class="g-signin2" data-onsuccess="onGoogleSignIn"></div>
+                                    <script
+                                        async
+                                        src="https://telegram.org/js/telegram-widget.js?7"
+                                        data-telegram-login="<?php $suitwalkOptions->getTelegramBotName(); ?>"
+                                        data-size="medium"
+                                        data-radius="0"
+                                        data-auth-url="<?php echo $this->serverurl($this->url('telegram-signin')); ?>"
+                                    ></script>
                                 </li>
                             </ul>
                         </li>
@@ -91,7 +99,7 @@ if (!isset($locale)) {
                     <ul class="nav navbar-nav navbar-right">
                         <li>
                             <p class="navbar-text">
-                                <?php echo MessageFormatter::formatMessage($locale, $translator->translate('logged-in-as'), ['emailAddress' => $this->escape($emailAddress)]); ?>
+                                <?php echo MessageFormatter::formatMessage($locale, $translator->translate('logged-in-as'), ['displayName' => $this->escape($displayName)]); ?>
                             </p>
                         </li>
                         <li>
@@ -125,7 +133,7 @@ if (!isset($locale)) {
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/js/suitwalk.js"></script>
 
-    <?php if (null === $emailAddress): ?>
+    <?php if (null === $displayName): ?>
         <script src="https://apis.google.com/js/platform.js" async defer></script>
     <?php endif; ?>
 </body>
