@@ -44,7 +44,6 @@ final class TelegramSigninHandler implements RequestHandlerInterface
             || !array_key_exists('id', $queryParams)
             || !array_key_exists('auth_date', $queryParams)
             || !array_key_exists('first_name', $queryParams)
-            || !array_key_exists('last_name', $queryParams)
         ) {
             return new RedirectResponse($this->urlHelper->generate('home'));
         }
@@ -74,7 +73,7 @@ final class TelegramSigninHandler implements RequestHandlerInterface
             new RedirectResponse($this->urlHelper->generate('home')),
             [
                 'email_address' => $emailAddress,
-                'display_name' => $queryParams['first_name'] . ' ' . $queryParams['last_name'],
+                'display_name' => $queryParams['first_name'],
             ],
             false
         );
