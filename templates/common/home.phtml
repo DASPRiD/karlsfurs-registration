@@ -34,6 +34,11 @@ $attendeeSort = function (Suitwalk\Domain\Attendee\Attendee $a, Suitwalk\Domain\
     ]); ?>
 </p>
 
+<div class="alert alert-info">
+    <h4 class="alert-heading"><?php echo $translator->translate('covid-19-heading'); ?></h4>
+    <p><?php echo $translator->translate('covid-19-paragraph'); ?></p>
+</div>
+
 <h2><?php echo $translator->translate('registration'); ?></h2>
 
 <?php if ($registrationClosed): ?>

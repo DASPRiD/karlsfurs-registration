@@ -70,4 +70,11 @@ To register for the Karlsfurs Suitwalk, please follow this link:
     'history' => 'History',
     'total' => 'Total',
     'i-calendar' => 'iCalendar',
+    'covid-19-heading' => 'COVID-19 Information',
+    'covid-19-paragraph' => '
+        To attend the suitwalk itself as well as the restaurant you have to be either vaccinated, recovered or taken a
+        PCR test. We must also prohibit larger gatherings inside the parking garage. Thus we ask that only fursuiters
+        and their helpers stay inside to suit up, while all other people should wait outside on the other side of the
+        street. Please avoid creating a larger cluster of people and instead spread out, but do not obstruct the street. 
+    ',
 ];
