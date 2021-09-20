@@ -73,10 +73,8 @@ Um dich beim Karlsfurs Suitwalk anzumelden, folge bitte diesem Link:
     'i-calendar' => 'iCalendar',
     'covid-19-heading' => 'COVID-19 Information',
     'covid-19-paragraph' => '
-        Für die Teilnahme sowohl am Suitwalk selbst als auch im Restaurant gilt die 3G-Regel. Ihr müsst also entweder
-        geimpft, genesen oder getestet sein. Außerdem müssen wir den Aufenthalt größerer Gruppen im Parkhaus untersagen.
-        Wir bitten daher darum, dass sich nur Suiter und deren Helfer zum Umziehen im Parkhaus aufhalten, der Rest 
-        wartet bitte unten auf der anderen Straßenseite. Bildet dabei bitte keine Menschentraube, sondern verteilt euch
-        etwas und blockiert nicht die Straße.
+        Der Suitwalk findet unter strenger Beachtung unseres
+        <a href="https://docs.google.com/document/d/16x7irytgXEWcA6n0hzKhaF8qvcWNmHT9Oc8QiEu2_1U/edit?usp=sharing">Hygienekonzeptes</a>
+        statt. Bitte lest euch dieses aufmerksam durch. 
     ',
 ];
