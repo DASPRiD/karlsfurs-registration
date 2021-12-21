@@ -80,9 +80,9 @@ final class HomeHandler implements RequestHandlerInterface
         $event = $this->getLatestEvent->__invoke();
         $groups = $this->getAllGroup->__invoke();
         $registrationClosed = (new DateTimeImmutable() > $event->getDate());
-        $emailAddress = $request->getAttribute(IdentityMiddleware::IDENTITY_ATTRIBUTE)['emailAddress'];
+        $identity = $request->getAttribute(IdentityMiddleware::IDENTITY_ATTRIBUTE);
 
-        if (null === $emailAddress || $registrationClosed) {
+        if (null === $identity || $registrationClosed) {
             return $this->responseRenderer->render('common::home', $request, [
                 'event' => $event,
                 'form' => null,
@@ -91,6 +91,7 @@ final class HomeHandler implements RequestHandlerInterface
             ]);
         }
 
+        $emailAddress = $identity['emailAddress'];
         $ipAddress = Multi::factory($request->getServerParams()['REMOTE_ADDR']);
         $form = $this->formBuilder->buildForm($emailAddress, $ipAddress, $event, $groups);
         $existingAttendees = $this->searchAttendeesByEmailAddress->__invoke($event, $emailAddress);
